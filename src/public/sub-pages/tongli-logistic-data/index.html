@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
+        
+        <!-- bootstrap css -->
+        <link rel="stylesheet" href="stylesheets/bootstrap.css">
+        <link rel="stylesheet" href="stylesheets/bootstrap-grid.css">
+        <link rel="stylesheet" href="stylesheets/normalize.css">
+        <link rel="stylesheet" href="stylesheets/main.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+        <script src='javascripts/vendor/echarts.js'></script>
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+        
+        <!-- page content goes here-->
+        <div class='title-block'>
+            <div class='grids-1'><label class='title'>﻿玉溪传化通力公路港数据展示</label></div>
+            <div class='grids-1'><img class='underscore' src='images/underscore.png' alt='' /></div>
+        </div>
+        <!-- column left -->
+        <div class='container column'>
+            <div class='row bar-row'>
+                <div class='col bar-small'>
+                    <div class='chart-title'>
+                        <label>冷链常跑路线</label>
+                    </div>
+                    <div id='leng-lian-frequent' class='chart-body chart-border'></div>
+                </div>
+                <div class='col bar-small'>
+                    <div class='chart-title'>
+                        <label>卷烟常跑路线</label>
+                    </div>
+                    <div id='juanyan-frequent' class='chart-body chart-border'></div>
+                </div>
+            </div>
+            <div class='row bar-row'>
+                <div class='col bar-small'>
+                    <div class='chart-title'>
+                        <label>施伟策常跑路线</label>
+                    </div>
+                    <div id='shiweice-frequent' class='chart-body chart-border'></div>
+                </div>
+                <div class='col bar-small'>
+                    <div class='chart-title'>
+                        <label>零担常跑路线</label>
+                    </div>
+                    <div id='lingdan-frequent' class='chart-body chart-border'></div>
+                </div>
+            </div>
+            <div class='row bar-row'>
+                <div class='col bar-large'>
+                    <div class='chart-title'>
+                        <label>订单走势</label>
+                    </div>
+                    <div id='order-trends' class='chart-wide chart-border'></div>
+                </div>
+            </div>
+        </div>
+        <!-- column middle -->
+        <div class='container column'>
+            <div class='row chart-map'>
+                
+            </div>
+            <div class='row'>
+                <div class='chart-title'>
+                    <label>卷烟5大客户需求走势</label>
+                </div>
+                <div class='chart-wide chart-border' id='juanyan-req-trends'>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- column right -->
+        <div class='container column-right'>
+            <div class='row bar-row-short'>
+                <div class='col'>
+                    <div class='chart-title'>
+                        <label>满载前5路线</label>
+                    </div>
+                    <div class='chart-right chart-border' style='height: 260px;' id='full-top5'></div>
+                </div>
+            </div>
+            <div class='row bar-row-short'>
+                <div class='col'>
+                    <div class='chart-title'>
+                        <label>非满载前5路线</label>
+                    </div>
+                    <div class='chart-right chart-border' id='empty-top5' style='height: 260px;'></div>
+                </div>
+            </div>
+            <div class='row bar-row-short'>
+                <div class='col' style='width: 630px;'>
+                    <div class='chart-title'>
+                        <label>卷烟路线价值对比</label>
+                    </div>
+                    <div class='container'>
+                        <div class='row chart-border'>
+                            <div class='col bar-left'>
+                                <div class='chart-narrow' id='juanyan-routine-value-top' style='height: 260px;'></div>
+                            </div>
+                            <div class='col-md-auto icons-middle'>
+                                <div></div>
+                            </div>
+                            <div class='col bar-right'>
+                                <div class='chart-narrow' id='juanyan-routine-value-bottom' style='height: 260px;'></div>
+                            </div>
+                        </div>
+                    </div>                                    
+                </div>
+            </div>
+            <!--
+            <div class='row bar-row-short'>
+                <div class='col'>
+                    <div class='chart-title'>
+                        <label>施伟策路线价值对比</label>
+                    </div>
+                    <div class='chart-right' id='shiweice-routine-value' style='height: 194px;'></div>
+                </div>
+            </div>
+            -->
+        </div>
+        <!-- end of page content -->
+        <!-- external javascript files -->
+        <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>
+        <!--
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="javascripts/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+        -->
+        <script src="javascripts/vendor/jquery.js"></script>
+        <script src="javascripts/plugins.js"></script>
+        <script src="javascripts/main.js"></script>
+        
+    </body>
+</html>
