@@ -53,9 +53,9 @@ a {
 }
 
 .column-right {
-  width:  630px;
+  width:  500px;
   height:  990px;
-  float:  left;
+  float:  right;
 }
 
 .bar-row {  
@@ -103,4 +103,13 @@ a {
 
 .bar-right {
   width:  330px;
+}
+
+.small-background-layer {
+  width:  828px;
+  height:  828px;
+  left:  445px;
+  top:  100px;
+  position:  relative;
+  background-image: url('../images/background-layer.png');
 }

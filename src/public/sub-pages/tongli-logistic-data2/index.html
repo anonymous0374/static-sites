@@ -42,15 +42,16 @@
                         <label>零担常跑路线</label>
                     </div>
                     <div id='lingdan-frequent' class='chart-body chart-border'></div>
-                </div>                
+                </div>
             </div>
-            <div class='row bar-row'>                
+            <div class='row bar-row'>
                 <div class='col bar-small'>
                     <div class='chart-title'>
                         <label>卷烟常跑路线</label>
                     </div>
                     <div id='juanyan-frequent' class='chart-body chart-border'></div>
                 </div>
+                <div class='col'></div>
             </div>
             <div class='row bar-row'>
                 <div class='col bar-large'>
@@ -64,7 +65,7 @@
         <!-- column middle -->
         <div class='container column'>
             <div class='row chart-map'>
-            </div>            
+            </div>
         </div>
         <!-- column right -->
         <div class='container column-right'>
@@ -85,23 +86,23 @@
                 </div>
             </div>
             <div class='row bar-row-short'>
-                <div class='col' style='width: 630px;'>
+                <div class='col'>
                     <div class='chart-title'>
                         <label>非空载Top5路线</label>
                     </div>
-                    <div class='container'>
-                        <div class='row chart-border'>                            
-                            <div class='col bar-right'>
-                                <div class='chart-narrow' id='loaded-top5' style='height: 260px;'></div>
-                            </div>
-                        </div>
-                    </div>                                    
+                    <div class='chart-right chart-border' id='loaded-top5' style='height: 260px;'></div>
                 </div>
-            </div>            
+            </div>
         </div>
+
+        <!-- another div as a background layer on top of the whole background and under other contents-->
+        <div class='small-background-layer'>
+            
+        </div> 
+
         <!-- end of page content -->
         <!-- external javascript files -->
-        <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>        
+        <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>
         <script src="javascripts/vendor/jquery.js"></script>
         <script src="javascripts/plugins.js"></script>
         <script src="javascripts/main.js"></script>
