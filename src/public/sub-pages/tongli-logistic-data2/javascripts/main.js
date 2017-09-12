@@ -428,13 +428,11 @@
 
                 // 12 months as xAxis
                 $([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).each(function(index, item) {
-                    if (item) {
-
-                    }
-                });
-                $(series_i).each(function(index, item) {
-                    if (index + 1 !== parseInt(item.valueText)) {
-                        series_i.splice(index, 0, null);
+                    if (!findValueOnXAxis(item, series_i)) {
+                        series_i.splice(index, 0, {
+                            valueText: index + 1,
+                            valueLone: null
+                        });
                     }
                 });
 
@@ -442,8 +440,6 @@
                     type: 'line',
                     data: series_i
                 });
-
-
 
             });
 
@@ -460,12 +456,26 @@
 
                 return found;
             }
+
         } catch (e) {
             console.log('exception occurred!');
         }
 
+        $(Object.keys(series)).each(function(index, key) {
+            var selectedArr = series[key].data.map(function(item) {
+                return item.valueLong;
+            });
+
+            series[key] = selectedArr;
+        });
+
         option = {
-            series: series
+            "series": series.map(function(arr) {
+                return {
+                    type: "line",
+                    data: arr
+                }
+            })
         };
 
         return option;
