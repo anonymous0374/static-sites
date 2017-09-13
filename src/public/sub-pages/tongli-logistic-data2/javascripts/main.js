@@ -50,7 +50,7 @@
                         data.series.data = data.series.data.length > 5 ? data.series.data.slice(0, 5) : data.series.data;
                         data.yAxis.data = updatedData.length >= 5 ? updatedData.slice(0, 5) : updatedData;
                     }
-                    // END ALERT!!!! Code to format two special bar charts
+                    // END ALERT!!!!
 
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
@@ -275,7 +275,82 @@
         };
 
         // setting template of a map chart
-        // var mapOptBase = 
+        var mapOptBase = {
+            elId: 'china_map',
+            backgroundColor: '#404a59',
+            geo: {
+                map: 'china',
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: true,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#323c48',
+                        borderColor: '#404a59'
+                    },
+                    emphasis: {
+                        areaColor: '#2a333d'
+                    }
+                }
+            },
+            series: [{
+                name: '地点',
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: {
+                    brushType: 'stroke',
+                    period: 7,
+                    scale: 26
+                },
+                label: {
+                    emphasis: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{b}'
+                    }
+                },
+                symbolSize: 2,
+                showEffectOn: 'render',
+                itemStyle: {
+                    normal: {
+                        color: '#46bee9'
+                    }
+                },
+                data: []
+            }, {
+                name: '线路',
+                type: 'lines',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                large: true,
+                effect: {
+                    show: true,
+                    constantSpeed: 30,
+                    symbol: 'arrow', //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                    symbolSize: 6,
+                    trailLength: 0,
+                },
+                lineStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#58B3CC'
+                        }, {
+                            offset: 1,
+                            color: '#F58158'
+                        }], false),
+                        width: 1,
+                        opacity: 0.6,
+                        curveness: 0.2
+                    }
+                },
+                data: []
+            }]
+        };
 
         // actual configurations of all charts on the page
         var config = {
@@ -302,7 +377,8 @@
             option_loaded_top5: $.extend(true, {}, barOptBase2, {
                 elId: 'loaded-top5',
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
-            })
+            }),
+            option_map: mapOptBase
         };
 
         return config;
