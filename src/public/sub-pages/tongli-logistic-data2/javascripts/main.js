@@ -1,11 +1,11 @@
 (function($, host, echarts) {
-    if (!echarts) {
-        alert('eChart library is not loaded properly, program exit!');
+    if (!(echarts && $)) {
+        alert('eCharts or jQuery libraries are not loaded properly, program exit!');
         return;
     }
 
-    // get basic configs of all charts on this page
-    var config = getConfigTemplate();
+    var config = getConfigTemplate(); // get basic configs of all charts on this page
+    var charts = []; // eChart instances
 
     $(function() { // refresh the charts        
         generateCharts();
@@ -15,7 +15,9 @@
 
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
-        var charts = []; // eChart instances
+        $(charts).each(function(index, item) {
+            item.dispose();
+        });
 
         $(Object.keys(config)).each(function(index, key) {
             (function() {
@@ -25,12 +27,7 @@
                 });
 
                 chart = echarts.init($('#' + config[key].elId)[0]);
-                chart.clear();
-                charts.push({
-                    'chart': chart,
-                    'type': config[key].type,
-                    'id': config[key].elId
-                });
+                charts.push(chart); // closure
 
                 promise.then(function(rsp) {
                     return dataResolved(rsp, config[key].type);
@@ -119,13 +116,12 @@
 
         };
 
-        // another type of bar-chart
+        // another setting template of bar-chart
         var barOptBase2 = $.extend(true, {}, barOptBase, {
             elId: 'full-top5',
             grid: {
                 left: '-10%',
                 top: '10%',
-                //bottom: '-5%',
                 containLabel: true
             },
             yAxis: {
@@ -139,42 +135,7 @@
                 axisLine: {
                     show: false
                 },
-                data: [{
-                    value: 'No.5. 玉溪 -- 重庆',
-                    textStyle: {
-                        fontSize: 10,
-                        color: 'white',
-                        padding: [0, 0, 0, 0]
-                    }
-                }, {
-                    value: 'No.4. 玉溪 -- 贵阳',
-                    textStyle: {
-                        fontSize: 10,
-                        color: 'white',
-                        padding: [-40, -90, 0, 0]
-                    }
-                }, {
-                    value: 'No.3. 玉溪 -- 昆明',
-                    textStyle: {
-                        fontSize: 10,
-                        color: 'white',
-                        padding: [-40, -90, 0, 0]
-                    }
-                }, {
-                    value: 'No.2. 玉溪 -- 成都',
-                    textStyle: {
-                        fontSize: 10,
-                        color: 'white',
-                        padding: [-40, -90, 0, 0]
-                    }
-                }, {
-                    value: 'No.1. 玉溪 -- 武汉',
-                    textStyle: {
-                        fontSize: 10,
-                        color: 'white',
-                        padding: [-40, -90, 0, 0]
-                    }
-                }]
+                data: []
             },
             series: {
                 type: 'bar',
@@ -183,7 +144,7 @@
             }
         });
 
-        // basic settings of line-charts
+        // setting template of line-charts
         var lineOptBase = {
             color: ['#3398DB'],
             type: 'line',
@@ -240,7 +201,7 @@
             },
             series: [{
                 type: 'line',
-                data: [10, 90, 70, 80, 90, 100, 20, 50, 40, 30, 60, 30]
+                data: []
             }, {
                 type: 'line',
                 lineStyle: {
@@ -248,21 +209,20 @@
                         color: 'pink'
                     }
                 },
-                data: [20, 30, 70, 80, 50, 40, 30, 60, 30, 90, 100, 20]
+                data: []
             }, {
-                // name: '1/2的指数',
                 type: 'line',
                 lineStyle: {
                     normal: {
                         color: 'green'
                     }
                 },
-                data: [80, 90, 170, 180, 150, 140, 130, 160, 130, 190, 200, 120]
+                data: []
             }],
             url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
         };
 
-        // basic settings of a pie chart
+        // setting template of a pie chart
         var pieOptBase = {
             elId: 'chechang',
             type: 'pie',
@@ -313,6 +273,9 @@
             }],
             url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=5"
         };
+
+        // setting template of a map chart
+        // var mapOptBase = 
 
         // actual configurations of all charts on the page
         var config = {
@@ -370,7 +333,6 @@
         } catch (e) {
 
         }
-
 
         return option;
     };
@@ -484,7 +446,6 @@
     function lineDataFailed(e) {
 
     }
-
 
     function dataResolved(rsp, chartType) {
         switch (chartType) {
