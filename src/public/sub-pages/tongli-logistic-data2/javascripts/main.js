@@ -12,12 +12,17 @@
         generateCharts();
         setInterval(generateCharts, 10000);
 
+        setInterval(function() {
+            location.reload(true);
+        }, 1000 * 60 * 10);
+
     });
 
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
         $(charts).each(function(index, item) {
-            item.dispose();
+            // item.dispose();
+            item.clear();
         });
 
         $(Object.keys(config)).each(function(index, key) {
@@ -47,9 +52,10 @@
                                 return {
                                     value: item,
                                     textStyle: {
-                                        fontSize: 10,
+                                        fontSize: 12,
                                         color: 'white',
-                                        padding: [-40, -70, 0, 0]
+                                        padding: [-45, 0, 0, 10],
+                                        align: 'left'
                                     }
                                 };
                             });
@@ -60,6 +66,25 @@
                     }
                     // END ALERT!!!!
 
+                    // ALERT!!! speical logic to add shadows to bars
+                    /*
+                    if (option.type === 'bar') {
+                        $.isArray(option.series) ?
+                            option.series.push({
+                                // For shadow
+                                type: 'bar',
+                                itemStyle: {
+                                    normal: {
+                                        color: 'rgba(0,0,0,0.05)'
+                                    }
+                                },
+                                barGap: '-100%',
+                                barWidth: '60%',
+                                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                                animation: false
+                            });
+                    }: '';*/
+                    // END ALERT!!!
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
                 });
@@ -141,7 +166,7 @@
         var barOptBase2 = $.extend(true, {}, barOptBase, {
             elId: 'full-top5',
             grid: {
-                left: '-10%',
+                left: '-25%',
                 top: '10%',
                 containLabel: true
             },
@@ -161,7 +186,68 @@
             series: {
                 type: 'bar',
                 barWidth: '40%',
-                data: [180, 150, 120, 80, 70]
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 80, 80, 0],
+                        color: new echarts.graphic.LinearGradient(
+                            1, 0, 0, 0, [{
+                                offset: 0,
+                                color: '#83bef6'
+                            }, {
+                                offset: 0.5,
+                                color: '#188df0'
+                            }, {
+                                offset: 1,
+                                color: '#188df0'
+                            }]
+                        )
+                    }
+                },
+                data: []
+            }
+        });
+
+        var barOptBase3 = $.extend(true, {}, barOptBase, {
+            elId: 'full-top5',
+            grid: {
+                left: '-30%',
+                top: '10%',
+                containLabel: true
+            },
+            yAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    color: '#ffffff;'
+                },
+                axisLine: {
+                    show: false
+                },
+                data: []
+            },
+            series: {
+                type: 'bar',
+                barWidth: '40%',
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 80, 80, 0],
+                        color: new echarts.graphic.LinearGradient(
+                            1, 0, 0, 0, [{
+                                offset: 0,
+                                color: '#83bef6'
+                            }, {
+                                offset: 0.5,
+                                color: '#188df0'
+                            }, {
+                                offset: 1,
+                                color: '#188df0'
+                            }]
+                        )
+                    }
+                },
+                data: []
             }
         });
 
@@ -384,7 +470,7 @@
                             offset: 1,
                             color: '#F58158'
                         }], false),
-                        width: 1,
+                        width: 3,
                         opacity: 0.6,
                         curveness: 0.2
                     }
@@ -437,6 +523,7 @@
 
         // actual configurations of all charts on the page
         var the_config = {
+            // add shadows to bars
             option_lenglian_frequent_bar: $.extend(true, {}, barOptBase, {
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=1"
             }),
@@ -457,7 +544,7 @@
                 elId: 'empty-top5',
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=6"
             }),
-            option_loaded_top5: $.extend(true, {}, barOptBase2, {
+            option_loaded_top5: $.extend(true, {}, barOptBase3, {
                 elId: 'loaded-top5',
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
             }),
@@ -548,7 +635,6 @@
                         num2 = parseInt(item2.valueText);
                     return num1 - num2;
                 });
-
 
                 // 12 months as xAxis
                 $([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).each(function(index, item) {
