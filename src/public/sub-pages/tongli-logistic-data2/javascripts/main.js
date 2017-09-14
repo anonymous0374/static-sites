@@ -1,4 +1,5 @@
 (function($, host, echarts) {
+    'use strict';
     if (!(echarts && $)) {
         alert('eCharts or jQuery libraries are not loaded properly, program exit!');
         return;
@@ -7,9 +8,9 @@
     var config = getConfigTemplate(); // get basic configs of all charts on this page
     var charts = []; // eChart instances
 
-    $(function() { // refresh the charts        
+    $(function() { // refresh the charts
         generateCharts();
-        setInterval(generateCharts, 3000);
+        setInterval(generateCharts, 10000);
 
     });
 
@@ -23,19 +24,24 @@
             (function() {
                 var chart = {};
                 var promise = $.ajax({
-                    url: config[key].url,
+                    url: config[key].url
                 });
-
-                chart = echarts.init($('#' + config[key].elId)[0]);
-                charts.push(chart); // closure
+                var $chart = $('#' + config[key].elId);
+                if ($chart.length > 0) { // check if element exists for safty
+                    chart = echarts.init($chart[0]);
+                    charts.push(chart); // closure
+                } else {
+                    console.log('cannot find element for the chart: ' + config[key].elId);
+                    return;
+                }
 
                 promise.then(function(rsp) {
                     return dataResolved(rsp, config[key].type);
                 }).then(function(data) {
                     var option = config[key];
-
                     // ALERT!!!! Code to format two special bar charts
-                    if (["empty-top5", "loaded-top5"].indexOf(option.elId) !== -1) {
+                    var special_id = ["empty-top5", "loaded-top5"];
+                    if (special_id.indexOf(option.elId) !== -1) {
                         var updatedData =
                             data.yAxis.data.map(function(item) {
                                 return {
@@ -57,7 +63,7 @@
                 });
 
             }());
-        })
+        });
     }
 
     /////////////////////  CONFIGURATIONS BELOW //////////////////////////////////////////////
@@ -158,9 +164,6 @@
                     color: 'white',
                     opacity: 0.7
                 },
-                axisTick: {
-                    show: false
-                },
                 // name: 'x',
                 splitLine: {
                     show: true,
@@ -245,7 +248,7 @@
                 labelLine: {
                     normal: {
                         lineStyle: {
-                            color: '#999',
+                            color: '#999'
                         }
                     }
                 },
@@ -269,7 +272,7 @@
                     value: 5,
                     name: '2米以下',
                     color: '#00abf3;'
-                }, ]
+                }]
             }],
             url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=5"
         };
@@ -322,7 +325,28 @@
                         color: '#46bee9'
                     }
                 },
-                data: []
+                data: [{
+                    name: '昆明',
+                    value: [102.712251, 25.040609, 100]
+                }, {
+                    name: '玉溪',
+                    value: [102.543907, 24.350461, 99]
+                }, {
+                    name: '贵阳',
+                    value: [106.713478, 26.578343, 95]
+                }, {
+                    name: '成都',
+                    value: [104.065735, 30.659462, 90]
+                }, {
+                    name: '广州',
+                    value: [113.280637, 23.125178, 80]
+                }, {
+                    name: '桂林',
+                    value: [110.299121, 25.274215, 70]
+                }, {
+                    name: '武汉',
+                    value: [114.298572, 30.584355, 60]
+                }]
             }, {
                 name: '线路',
                 type: 'lines',
@@ -334,7 +358,7 @@
                     constantSpeed: 30,
                     symbol: 'arrow', //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
                     symbolSize: 6,
-                    trailLength: 0,
+                    trailLength: 0
                 },
                 lineStyle: {
                     normal: {
@@ -350,12 +374,54 @@
                         curveness: 0.2
                     }
                 },
-                data: []
+                data: [{
+                    fromName: '昆明',
+                    toName: '玉溪',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [102.543907, 24.350461, 99]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '贵阳',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [106.713478, 26.578343, 95]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '成都',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [104.065735, 30.659462, 90]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '广州',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [113.280637, 23.125178, 80]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '桂林',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [110.299121, 25.274215, 70]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '武汉',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [114.298572, 30.584355, 60]
+                    ]
+                }]
             }]
         };
 
         // actual configurations of all charts on the page
-        var config = {
+        var the_config = {
             option_lenglian_frequent_bar: $.extend(true, {}, barOptBase, {
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=1"
             }),
@@ -382,77 +448,8 @@
             }),
             option_map: mapOptBase
         };
-        /*
-                    config.testData = {
-                        data: [{
-                            name: '昆明',
-                            value: [102.712251, 25.040609, 100]
-                        }, {
-                            name: '玉溪',
-                            value: [102.543907, 24.350461, 99]
-                        }, {
-                            name: '贵阳',
-                            value: [106.713478, 26.578343, 95]
-                        }, {
-                            name: '成都',
-                            value: [104.065735, 30.659462, 90]
-                        }, {
-                            name: '广州',
-                            value: [113.280637, 23.125178, 80]
-                        }, {
-                            name: '桂林',
-                            value: [110.299121, 25.274215, 70]
-                        }, {
-                            name: '武汉',
-                            value: [114.298572, 30.584355, 60]
-                        }],
-                        routines: [{
-                            fromName: '昆明',
-                            toName: '玉溪',
-                            coords: [
-                                [102.712251, 25.040609, 100],
-                                [102.543907, 24.350461, 99]
-                            ]
-                        }, {
-                            fromName: '昆明',
-                            toName: '贵阳',
-                            coords: [
-                                [102.712251, 25.040609, 100],
-                                [106.713478, 26.578343, 95]
-                            ]
-                        }, {
-                            fromName: '昆明',
-                            toName: '成都',
-                            coords: [
-                                [102.712251, 25.040609, 100],
-                                [104.065735, 30.659462, 90]
-                            ]
-                        }, {
-                            fromName: '昆明',
-                            toName: '广州',
-                            coords: [
-                                [102.712251, 25.040609, 100],
-                                [113.280637, 23.125178, 80]
-                            ]
-                        }, {
-                            fromName: '昆明',
-                            toName: '桂林',
-                            coords: [
-                                [102.712251, 25.040609, 100],
-                                [110.299121, 25.274215, 70]
-                            ]
-                        }, {
-                            fromName: '昆明',
-                            toName: '武汉',
-                            coords: [
-                                [102.712251, 25.040609, 100],
-                                [114.298572, 30.584355, 60]
-                            ]
-                        }]
-                    };
-                };*/
 
-        return config;
+        return the_config;
     }
 
     // data promise status-change event handlers
@@ -465,7 +462,8 @@
         try {
             response = JSON.parse(rsp).data;
             $(response).each(function(index, item) {
-                series.push(item.valueLong);
+                series.splice(0, 0, item.valueLong);
+                // series.push(item.valueLong);
                 yAxis.push(item.valueText);
             });
 
@@ -478,11 +476,12 @@
                 }
             };
         } catch (e) {
+            console.log(e);
 
         }
 
         return option;
-    };
+    }
 
     function barDataFailed(e) {
         console.log(e);
@@ -508,6 +507,7 @@
                 }
             };
         } catch (e) {
+            console.log(e);
 
         }
 
@@ -516,7 +516,7 @@
     }
 
     function pieDataFailed(e) {
-
+        console.log(e);
     }
 
     function lineDataResolved(rsp) {
@@ -556,7 +556,7 @@
                 var i = 0;
                 var found = false;
 
-                for (i = 0; i < objs.length; i++) {
+                for (i = 0; i < objs.length; i += 1) {
                     if (xAxis === parseInt(objs[i].valueText)) {
                         found = true;
                         break;
@@ -579,11 +579,11 @@
         });
 
         option = {
-            "series": series.map(function(arr) {
+            series: series.map(function(arr) {
                 return {
                     type: "line",
                     data: arr
-                }
+                };
             })
         };
 
