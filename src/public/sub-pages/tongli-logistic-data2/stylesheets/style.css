@@ -96,11 +96,11 @@ a {
 }
 
 .the-map {
-  width: 2000px;
-  height:  2000px;
+  width: 800px;
+  height:  800px;
   position: absolute;
-  top:  -1000px;
-  left:  -200px;
+  top:  100px;
+  left:  400px;
   z-index: -1;
 }
 

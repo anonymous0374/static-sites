@@ -9,6 +9,8 @@
     var charts = []; // eChart instances
 
     $(function() { // refresh the charts
+        // generate map separately, and generate only once
+        generateMap();
         generateCharts();
         setInterval(generateCharts, 10000);
 
@@ -18,11 +20,156 @@
 
     });
 
+    function generateMap() {
+        var mapOptBase = {
+            elId: 'china_map',
+            backgroundColor: 'transparent',
+            geo: {
+                map: 'china',
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: true,
+                itemStyle: {
+                    normal: {
+                        areaColor: 'rgba(1, 101, 204, 0.7)',
+                        borderColor: '#404a59'
+                    },
+                    emphasis: {
+                        areaColor: '#2a333d'
+                    }
+                },
+                layoutCenter: ['50%', '50%'],
+                layoutSize: 800
+            },
+            series: [{
+                name: '地点',
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: {
+                    brushType: 'stroke',
+                    period: 7,
+                    scale: 26
+                },
+                label: {
+                    emphasis: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{b}'
+                    }
+                },
+                symbolSize: 2,
+                showEffectOn: 'render',
+                itemStyle: {
+                    normal: {
+                        color: '#46bee9'
+                    }
+                },
+                data: [{
+                    name: '昆明',
+                    value: [102.712251, 25.040609, 100]
+                }, {
+                    name: '玉溪',
+                    value: [102.543907, 24.350461, 99]
+                }, {
+                    name: '贵阳',
+                    value: [106.713478, 26.578343, 95]
+                }, {
+                    name: '成都',
+                    value: [104.065735, 30.659462, 90]
+                }, {
+                    name: '广州',
+                    value: [113.280637, 23.125178, 80]
+                }, {
+                    name: '桂林',
+                    value: [110.299121, 25.274215, 70]
+                }, {
+                    name: '武汉',
+                    value: [114.298572, 30.584355, 60]
+                }]
+            }, {
+                name: '线路',
+                type: 'lines',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                large: true,
+                effect: {
+                    show: true,
+                    constantSpeed: 30,
+                    symbol: 'arrow', //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                    symbolSize: 6,
+                    trailLength: 0
+                },
+                lineStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#58B3CC'
+                        }, {
+                            offset: 1,
+                            color: '#F58158'
+                        }], false),
+                        width: 3,
+                        opacity: 0.6,
+                        curveness: 0.2
+                    }
+                },
+                data: [{
+                    fromName: '昆明',
+                    toName: '玉溪',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [102.543907, 24.350461, 99]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '贵阳',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [106.713478, 26.578343, 95]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '成都',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [104.065735, 30.659462, 90]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '广州',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [113.280637, 23.125178, 80]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '桂林',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [110.299121, 25.274215, 70]
+                    ]
+                }, {
+                    fromName: '昆明',
+                    toName: '武汉',
+                    coords: [
+                        [102.712251, 25.040609, 100],
+                        [114.298572, 30.584355, 60]
+                    ]
+                }]
+            }]
+        };
+        var chart = echarts.init($('#china_map')[0]);
+        chart.setOption(mapOptBase);
+    }
+
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
         $(charts).each(function(index, item) {
-            // item.dispose();
-            item.clear();
+            item.chart.clear();
         });
 
         $(Object.keys(config)).each(function(index, key) {
@@ -34,7 +181,10 @@
                 var $chart = $('#' + config[key].elId);
                 if ($chart.length > 0) { // check if element exists for safty
                     chart = echarts.init($chart[0]);
-                    charts.push(chart); // closure
+                    charts.push({ // closure
+                        chartId: config[key].elId,
+                        chart: chart
+                    });
                 } else {
                     console.log('cannot find element for the chart: ' + config[key].elId);
                     return;
@@ -66,25 +216,6 @@
                     }
                     // END ALERT!!!!
 
-                    // ALERT!!! speical logic to add shadows to bars
-                    /*
-                    if (option.type === 'bar') {
-                        $.isArray(option.series) ?
-                            option.series.push({
-                                // For shadow
-                                type: 'bar',
-                                itemStyle: {
-                                    normal: {
-                                        color: 'rgba(0,0,0,0.05)'
-                                    }
-                                },
-                                barGap: '-100%',
-                                barWidth: '60%',
-                                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                                animation: false
-                            });
-                    }: '';*/
-                    // END ALERT!!!
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
                 });
@@ -94,6 +225,7 @@
     }
 
     /////////////////////  CONFIGURATIONS BELOW //////////////////////////////////////////////
+
 
     // specific configurations for each chart
     function getConfigTemplate() {
@@ -400,7 +532,7 @@
                     }
                 },
                 layoutCenter: ['50%', '50%'],
-                layoutSize: 2000
+                layoutSize: 400
             },
             series: [{
                 name: '地点',
@@ -545,10 +677,10 @@
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=6"
             }),
             option_loaded_top5: $.extend(true, {}, barOptBase3, {
-                elId: 'loaded-top5',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
-            }),
-            option_map: mapOptBase
+                    elId: 'loaded-top5',
+                    url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
+                }) //, // map will be generated separately
+                //option_map: mapOptBase
         };
 
         return the_config;

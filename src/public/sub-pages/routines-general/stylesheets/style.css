@@ -1,8 +1,131 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("../images/background.jpg");
+  width: 100%;  
 }
 
 a {
   color: #00B7FF;
+}
+
+.title-block {
+
+}
+
+.title {
+	font-family:PingFangSC-Semibold;
+    font-size:45px;
+    font-weight: bold;
+    color:#00e4ff;
+    letter-spacing:0;
+
+    display: block;
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
+    text-align: center;
+}
+
+.underscore {
+    display: block;
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
+    width:  650px;
+}
+
+.chart-title {
+  font-family: 'PingFangSC-Semibold';
+  font-size:21px;
+  color: #00abf3;
+}
+
+.grids1 {
+	width: 100%;
+	display: block;
+}
+
+.column-left {
+  width: 950px;
+  float: left;
+}
+
+.top-row {  
+  height: 330px;
+}
+
+.bottom-row {
+  height:  600px;
+}
+
+.bar-row-short {
+  height:  300px;
+}
+
+.chart-body {
+  width: 100%;
+  height: 270px;
+}
+
+.chart-border {
+  border:  1px solid rgba(255, 255, 255, 0.16);
+
+}
+
+.chart-wide {
+  width:  100%;
+  height:  217px;
+}
+
+.map-container {
+  /*
+  width:  1500px;
+  height:  1500px;
+  overflow-y: hidden;
+
+  position: absolute;
+  top: -400px;
+  left:  200px;
+  z-index: -1;
+  */
+  background: transparent;
+  z-index: -1;
+}
+
+.the-map {
+  width: 2000px;
+  height:  2000px;
+  position: absolute;
+  top:  -1000px;
+  left:  -200px;
+  z-index: -1;
+}
+
+.chart-right {
+  width:  100%;
+  height:  310px;
+}
+
+.chart-narrow {
+  height:  300px;
+  width:  100%;
+  float:  left;
+}
+
+.bar-left {
+  width:  330px;
+}
+
+.bar-right {
+  width:  330px;
+}
+
+.small-background-layer {
+  width:  828px;
+  height:  828px;
+  left:  445px;
+  top:  100px;
+  position:  relative;
+  background-image: url('../images/background-layer.png');
 }
