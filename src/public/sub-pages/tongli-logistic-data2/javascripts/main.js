@@ -53,8 +53,10 @@
                                     }
                                 };
                             });
-                        data.series.data = data.series.data.length > 5 ? data.series.data.slice(0, 5) : data.series.data;
-                        data.yAxis.data = updatedData.length >= 5 ? updatedData.slice(0, 5) : updatedData;
+                        //// DANGEROUS!!! the backend returns 10 records where it should return 5 ONLY, thus this special code to pick last 5
+                        data.series.data = data.series.data.length === 10 ? data.series.data.slice(4, 9) : data.series.data;
+                        data.yAxis.data = updatedData.length === 10 ? updatedData.slice(4, 9) : updatedData;
+                        //// END DANGEROUS!!!
                     }
                     // END ALERT!!!!
 
@@ -113,13 +115,26 @@
             }],
             series: [{
                 type: 'bar',
-                barWidth: '60%',
+                barWidth: '50%',
                 itemStyle: {
-                    barBorderRadius: 40
+                    normal: {
+                        barBorderRadius: [0, 80, 80, 0],
+                        color: new echarts.graphic.LinearGradient(
+                            1, 0, 0, 0, [{
+                                offset: 0,
+                                color: '#83bef6'
+                            }, {
+                                offset: 0.5,
+                                color: '#188df0'
+                            }, {
+                                offset: 1,
+                                color: '#188df0'
+                            }]
+                        )
+                    }
                 },
                 data: []
             }]
-
         };
 
         // another setting template of bar-chart
