@@ -1,0 +1,166 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
+        
+        <!-- bootstrap css -->
+        <link rel="stylesheet" href="stylesheets/bootstrap.css">
+        <link rel="stylesheet" href="stylesheets/bootstrap-grid.css">
+        <link rel="stylesheet" href="stylesheets/normalize.css">
+        <link rel="stylesheet" href="stylesheets/main.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+        <script src='javascripts/vendor/echarts.js'></script>
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+        
+        <!-- page content goes here-->
+        <div class='title-block'>
+            <div class='grids-1'><label class='title'>﻿云南省物流车辆数据展示</label></div>
+            <div class='grids-1'><img class='underscore' src='images/underscore.png' alt='' /></div>
+        </div>
+        <div class='container' style='width: 100%'>
+            <div class='column column-left'>
+                <div class='row top-row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>城市物流中心年度配载平均用时</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='yearly-everage-matching-time'>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>月均运行效率</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='monthly-efficiency'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>配载用时</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='matching-time'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='column column-left'>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>车辆总量</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='vehicle-sum'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>车型分析</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='vehicle-types'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>车长分析</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='vehicle-length'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='column column-left'>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>车流量分析 -- 小时</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='hourly-vehicle-flow'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>车流量分析 -- 星期</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='hourly-vehicle-flow'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>车流量分析 -- 月</label>
+                        </div>
+                        <div class='chart-body chart-border'>
+                            <div class='counter-head'>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div id='monthly-vehicle-flow'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of page content -->
+        <!-- external javascript files -->
+        <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="javascripts/vendor/jquery.js"></script>
+        <script src="javascripts/vendor/china.js"></script>
+        <script src="javascripts/plugins.js"></script>
+        <script src="javascripts/main.js"></script>
+    </body>
+</html>

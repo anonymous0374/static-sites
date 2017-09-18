@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
         <link rel="apple-touch-icon" href="icon.png">
         <!-- Place favicon.ico in the root directory -->
@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="stylesheets/normalize.css">
         <link rel="stylesheet" href="stylesheets/main.css">
         <link rel="stylesheet" href="stylesheets/style.css">
-        <script src='javascripts/vendor/echarts.js'></script>
+        <script src='javascripts/vendor/echarts.js'></script>        
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -35,48 +35,84 @@
                     <div class='chart-title'>
                         <label>云南省货物流量概览</label>
                     </div>
-                    <div id='leng-lian-frequent' class='chart-body chart-border'></div>
+                    <div id='goods-transfer-general' class='chart-body chart-border'>
+                        <div id='total' class='total-counter'>
+                            <div class='counter-head'>
+                                <span class='counter-label'>货物总量: </span>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div class='counter-body'>
+                                <div style='float: right;'>
+                                    <span id="num"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class='col bar-small'>
                     <div class='chart-title'>
                         <label>云南省内货物流动前5类</label>
                     </div>
-                    <div id='lingdan-frequent' class='chart-body chart-border'></div>
+                    <div id='total-top5' class='chart-body chart-border'></div>
                 </div>
             </div>
             <div class='row bottom-row'>
-                <div class='col bar-small'>
+                <div class='col'>
                     <div class='chart-title'>
                         <label>云南省货物流入前5类</label>
                     </div>
-                    <div id='juanyan-frequent' class='chart-body chart-border'></div>
+                    <div class='chart-border'>
+                        <div id='total' class='in-top5-counter'>
+                            <div class='counter-head'>
+                                <span class='counter-label'>流入货物总量: </span>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div class='counter-body'>
+                                <div style='float: right;'>
+                                    <span id="num1"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div id='in-top5' class='chart-body-taller'></div>
+                        </div>
+                    </div>
                 </div>
-                <div class='col bar-large'>
+                <div class='col'>
                     <div class='chart-title'>
                         <label>云南省货物流出前5类</label>
                     </div>
-                    <div id='order-trends' class='chart-wide chart-border'></div>
+                    <div class='chart-border'>
+                        <div id='total' class='out-top5-counter'>
+                            <div class='counter-head'>
+                                <span class='counter-label'>流出货物总量: </span>
+                                <span class='counter-unit'>单位：单</span>
+                            </div>
+                            <div class='counter-body'>
+                                <div style='float: right;'>
+                                    <span id="num2"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div id='out-top5' class='chart-body-taller'></div>
+                        </div>
+                    </div>
                 </div>
-            </div>            
-        </div>
-        <!-- column middle -->
-        <div class='container column-right'>
-            <div class='row'>        
             </div>
-        </div>        
-
-        <!-- another div as a background layer on top of the whole background and under other contents-->        
+            
+        </div>
+        <!-- another div as a background layer on top of the whole background and under other contents-->
         <div class='small-background-layer'>
         </div>
         <div class='map-container'>
             <div  class='the-map' id="china_map">
             </div>
         </div>
-
         <!-- end of page content -->
         <!-- external javascript files -->
         <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>
-        <script src="javascripts/vendor/jquery.js"></script>
+        <script src="javascripts/vendor/jquery.js"></script>        
         <script src="javascripts/vendor/china.js"></script>
         <script src="javascripts/plugins.js"></script>
         <script src="javascripts/main.js"></script>

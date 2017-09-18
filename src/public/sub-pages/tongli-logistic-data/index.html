@@ -69,11 +69,10 @@
         </div>
         <!-- column middle -->
         <div class='container column'>
-            <div class='row chart-map'>
-                
+            <div class='row chart-map'>                
             </div>
             <div class='row'>
-                <div class='chart-title'>
+                <div class='chart-title' style='margin-top: 10px;'>
                     <label>卷烟5大客户需求走势</label>
                 </div>
                 <div class='chart-wide chart-border' id='juanyan-req-trends'>
@@ -99,7 +98,7 @@
                     <div class='chart-right chart-border' id='empty-top5' style='height: 260px;'></div>
                 </div>
             </div>
-            <div class='row bar-row-short'>
+            <div class='row bar-row-tall'>
                 <div class='col' style='width: 630px;'>
                     <div class='chart-title'>
                         <label>卷烟路线价值对比</label>
@@ -107,37 +106,30 @@
                     <div class='container'>
                         <div class='row chart-border'>
                             <div class='col bar-left'>
-                                <div class='chart-narrow' id='juanyan-routine-value-top' style='height: 260px;'></div>
+                                <div class='chart-narrow' id='juanyan-routine-value-top' style='height: 330px;'></div>
                             </div>
                             <div class='col-md-auto icons-middle'>
                                 <div></div>
                             </div>
                             <div class='col bar-right'>
-                                <div class='chart-narrow' id='juanyan-routine-value-bottom' style='height: 260px;'></div>
+                                <div class='chart-narrow' id='juanyan-routine-value-bottom' style='height: 330px;'></div>
                             </div>
                         </div>
-                    </div>                                    
-                </div>
-            </div>
-            <!--
-            <div class='row bar-row-short'>
-                <div class='col'>
-                    <div class='chart-title'>
-                        <label>施伟策路线价值对比</label>
                     </div>
-                    <div class='chart-right' id='shiweice-routine-value' style='height: 194px;'></div>
                 </div>
+            </div>            
+        </div>
+        <div class='small-background-layer'>
+        </div>
+        <div class='map-container'>
+            <div  class='the-map' id="china_map">
             </div>
-            -->
         </div>
         <!-- end of page content -->
         <!-- external javascript files -->
-        <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>
-        <!--
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="javascripts/vendor/jquery-3.2.1.min.js"><\/script>')</script>
-        -->
+        <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>        
         <script src="javascripts/vendor/jquery.js"></script>
+        <script src="javascripts/vendor/china.js"></script>
         <script src="javascripts/plugins.js"></script>
         <script src="javascripts/main.js"></script>
         

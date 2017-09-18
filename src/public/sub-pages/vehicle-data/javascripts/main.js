@@ -9,25 +9,16 @@
     var charts = []; // eChart instances
     var counters = []; // counter instances
     var counters = [{
-        elId: 'num',
+        elId: 'vehicle-sum',
         elClass: 'num',
         value: 972207
-    }, {
-        elId: 'num1',
-        elClass: 'num1',
-        value: 65535
-    }, {
-        elId: 'num2',
-        elClass: 'num2',
-        value: 35535
     }];
 
     $(function() { // configs for 3 counter modules
         generateCounterModules(counters);
-        setupMapSeries().then(generateMap);
         generateCharts();
         setInterval(generateCharts, 10000);
-        setInterval(function() {
+        setInterval(function() { // refresh the whole page
             location.reload(true);
         }, 1000 * 60 * 10);
 
@@ -38,264 +29,6 @@
             play(config.elId, config.elClass, config.value);
         });
     }
-
-    function generateMap(data) {
-        var mapOptBase = {
-            elId: 'china_map',
-            backgroundColor: 'transparent',
-            geo: {
-                map: 'china',
-                roam: true,
-                itemStyle: {
-                    normal: {
-                        areaColor: 'rgba(1, 101, 204, 0.7)',
-                        borderColor: '#404a59',
-                        borderWidth: 1
-                    }
-                },
-                layoutCenter: ['50%', '60%'],
-                layoutSize: 1000,
-                selectedMode: true,
-                regions: [{
-                    name: '四川',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff;',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '广东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '云南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 127, 213)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '广西',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '河南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '湖南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 212, 170)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '贵州',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '浙江',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '江苏',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 127, 213)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '重庆',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '山东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }]
-            },
-            series: [{
-                name: '地点',
-                type: 'effectScatter',
-                effectType: 'ripple',
-                showEffectOn: 'render',
-                coordinateSystem: 'geo',
-                zlevel: 2,
-                rippleEffect: {
-                    period: 4,
-                    scale: 4,
-                    brushType: 'stroke'
-                },
-                label: {
-                    emphasis: {
-                        show: true,
-                        position: 'right',
-                        formatter: '{b}'
-                    }
-                },
-                symbol: 'circle',
-                symbolSize: 20,
-                itemStyle: {
-                    normal: {
-                        color: '#46bee9'
-                    }
-                },
-                data: data.points.map(function(item) {
-                    item.symbol = 'circle';
-                    item.symbolSize = 10;
-                    item.itemStyle = {
-                        normal: {
-                            color: '#ff6666'
-                        }
-                    };
-
-                    return item;
-                })
-            }, {
-                name: '线路',
-                type: 'lines',
-                coordinateSystem: 'geo',
-                zlevel: 2,
-                effect: {
-                    show: true,
-                    constantSpeed: 30,
-                    symbol: 'arrow',
-                    symbolSize: 15,
-                    trailLength: 0
-                },
-                lineStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: '#ffffff'
-                        }, {
-                            offset: 0.5,
-                            color: '#188df0'
-                        }, {
-                            offset: 1,
-                            color: '#F58158'
-                        }], false),
-                        width: 4,
-                        opacity: 0.6,
-                        curveness: 0.2
-                    }
-                },
-                data: data.lines
-            }]
-        };
-        var chart = echarts.init($('#china_map')[0]);
-        chart.setOption(mapOptBase);
-    }
-
 
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
@@ -339,7 +72,7 @@
     function getConfigTemplate() {
         // basic settings of bar-charts
         var barOptBase = {
-            elId: 'in-top5',
+            elId: 'yearly-everage-matching-time',
             type: 'bar',
             tooltip: {
                 trigger: 'axis',
@@ -356,7 +89,7 @@
             yAxis: [{
                 type: 'category',
                 showTitle: false,
-                data: [],
+                data: [1, 1, 1, 1],
                 axisTick: {
                     show: false
                 },
@@ -397,13 +130,13 @@
                         )
                     }
                 },
-                data: []
+                data: [1, 1, 1, 1]
             }]
         };
 
         // setting template of a pie chart
         var pieOptBase = {
-            elId: 'total-top5',
+            elId: 'vehicle-types',
             type: 'pie',
             color: ['#58C1DA', '#0BA1FC', '#41D5F2', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
             series: [{
@@ -445,79 +178,75 @@
             url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=3"
         };
 
+        // setting template of line-charts
+        var lineOptBase = {
+            color: ['pink', 'green', 'yellow', 'grey'],
+            type: 'line',
+            xAxis: {
+                type: 'category',
+                axisLine: {
+                    color: '#ffffff;',
+                    opacity: 0.16
+                },
+                axisLabel: {
+                    color: 'white',
+                    opacity: 0.7
+                },
+                // name: 'x',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#ffffff;',
+                        opacity: 0.16
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#ffffff;',
+                        opacity: 0.16
+                    }
+                },
+                axisLabel: {
+                    color: 'white',
+                    opacity: 0.7
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [],
+            url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
+        };
+
         // actual configurations of all charts on the page
         var the_config = {
-            option_in_top5: $.extend(true, {}, barOptBase, {
+            option_average_matching_time_bar: $.extend(true, {}, barOptBase, {
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=4"
             }),
-            option_out_top5: $.extend(true, {}, barOptBase, {
-                elId: 'out-top5',
+            option_matching_time_bar: $.extend(true, {}, barOptBase, {
+                elId: 'matching-time',
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=5"
             }),
             option_chechang_pie: pieOptBase
         }
 
         return the_config;
-    }
-
-    // fetch data for china-map
-    function setupMapSeries() {
-        var coordsPromise = $.getJSON('javascripts/vendor/cn-provinces.json');
-        var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
-
-        return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
-            return generateMapData(coordsResolved[0], valuesResolved[0].data);
-        });
-    }
-
-    function generateMapData(coordsBase, values) {
-        var points = [],
-            lines = [];
-
-        points = values.map(function(item) {
-            var toName = item.valueText.split('-')[1].slice(0, 2);
-            var rtn = {};
-
-            try {
-                rtn = {
-                    name: toName,
-                    value: coordsBase[toName].concat(item.valueLong)
-                };
-            } catch (e) {
-                rtn = {};
-            }
-
-            return rtn;
-        });
-
-        lines = values.map(function(item) {
-            var fromName = item.valueText.split('-')[0].slice(0, 2);
-            var toName = item.valueText.split('-')[1].slice(0, 2);
-
-            return {
-                fromName: fromName,
-                toName: toName,
-                coords: getCoords([fromName, toName], coordsBase)
-            }
-        });
-
-        return {
-            points: points,
-            lines: lines
-        };
-    }
-
-    function getCoords(pair, coordsBase) {
-        var fromName = pair[0];
-        var toName = pair[1];
-
-        try {
-            return [coordsBase[fromName], coordsBase[toName]];
-        } catch (e) {}
-        return [
-            [],
-            []
-        ];
     }
 
     // data promise status-change event handlers
@@ -651,21 +380,6 @@
         return option;
     }
 
-    // helper function
-    function findValueOnXAxis(xAxis, objs) {
-        var i = 0;
-        var found = false;
-
-        for (i = 0; i < objs.length; i += 1) {
-            if (xAxis === parseInt(objs[i].valueText)) {
-                found = true;
-                break;
-            }
-        }
-
-        return found;
-    }
-
     function lineDataFailed(e) {
 
     }
@@ -716,12 +430,8 @@
             var newi = document.createElement('i')
             newi.innerHTML = arr[num[j].getAttribute("data-id")];
             num[j].querySelector("span").appendChild(newi);
-            /*
-            num[j].querySelector("span").style.webkitTransition = 'all ' + (.9 + j * .1) + 's ease-in .1s';
-            num[j].querySelector("span").style.webkitTransform = 'translate3d(0,-' + spanHeight + 'px,0)';*/
             $(num[j].querySelector("span")).css('transition', 'all ' + (.9 + j * .1) + 's ease-in .1s');
             $(num[j].querySelector("span")).css('transform', 'translate3d(0,-' + spanHeight + 'px,0)');
-
         }
     }
 

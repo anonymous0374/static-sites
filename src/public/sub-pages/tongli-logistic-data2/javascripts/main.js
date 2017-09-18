@@ -9,50 +9,211 @@
     var charts = []; // eChart instances
 
     $(function() { // refresh the charts
-        // generate map separately, and generate only once
-        generateMap();
+        // generate map separately, and generate only once        
+        setupMapSeries().then(generateMap);
         generateCharts();
         setInterval(generateCharts, 10000);
-
         setInterval(function() {
             location.reload(true);
         }, 1000 * 60 * 10);
 
     });
 
-    function generateMap() {
+    function generateMap(data) {
         var mapOptBase = {
             elId: 'china_map',
             backgroundColor: 'transparent',
             geo: {
                 map: 'china',
-                label: {
-                    emphasis: {
-                        show: false
-                    }
-                },
                 roam: true,
                 itemStyle: {
                     normal: {
                         areaColor: 'rgba(1, 101, 204, 0.7)',
-                        borderColor: '#404a59'
-                    },
-                    emphasis: {
-                        areaColor: '#2a333d'
+                        borderColor: '#404a59',
+                        borderWidth: 1
                     }
                 },
-                layoutCenter: ['50%', '50%'],
-                layoutSize: 800
+                layoutCenter: ['50%', '60%'],
+                layoutSize: 1400,
+                selectedMode: true,
+                regions: [{
+                    name: '四川',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 215, 226)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff;',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '广东',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 168, 226)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '云南',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 127, 213)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '广西',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 215, 226)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '河南',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(125, 205, 189)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '湖南',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 212, 170)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '贵州',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(125, 205, 189)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '浙江',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 168, 226)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '江苏',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 127, 213)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '重庆',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 215, 226)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }, {
+                    name: '山东',
+                    itemStyle: {
+                        normal: {
+                            areaColor: 'rgb(0, 215, 226)'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            color: '#ffffff',
+                            fontSize: 30,
+                            fontWeight: 'bold'
+                        }
+                    }
+                }]
             },
             series: [{
                 name: '地点',
                 type: 'effectScatter',
+                effectType: 'ripple',
+                showEffectOn: 'render',
                 coordinateSystem: 'geo',
                 zlevel: 2,
                 rippleEffect: {
-                    brushType: 'stroke',
-                    period: 7,
-                    scale: 26
+                    period: 4,
+                    scale: 4,
+                    brushType: 'stroke'
                 },
                 label: {
                     emphasis: {
@@ -61,105 +222,54 @@
                         formatter: '{b}'
                     }
                 },
-                symbolSize: 2,
-                showEffectOn: 'render',
+                symbol: 'circle',
+                symbolSize: 20,
                 itemStyle: {
                     normal: {
                         color: '#46bee9'
                     }
                 },
-                data: [{
-                    name: '昆明',
-                    value: [102.712251, 25.040609, 100]
-                }, {
-                    name: '玉溪',
-                    value: [102.543907, 24.350461, 99]
-                }, {
-                    name: '贵阳',
-                    value: [106.713478, 26.578343, 95]
-                }, {
-                    name: '成都',
-                    value: [104.065735, 30.659462, 90]
-                }, {
-                    name: '广州',
-                    value: [113.280637, 23.125178, 80]
-                }, {
-                    name: '桂林',
-                    value: [110.299121, 25.274215, 70]
-                }, {
-                    name: '武汉',
-                    value: [114.298572, 30.584355, 60]
-                }]
+                data: data.points.map(function(item) {
+                    item.symbol = 'circle';
+                    item.symbolSize = 10;
+                    item.itemStyle = {
+                        normal: {
+                            color: '#ff6666'
+                        }
+                    };
+
+                    return item;
+                })
             }, {
                 name: '线路',
                 type: 'lines',
                 coordinateSystem: 'geo',
                 zlevel: 2,
-                large: true,
                 effect: {
                     show: true,
                     constantSpeed: 30,
-                    symbol: 'arrow', //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
-                    symbolSize: 6,
+                    symbol: 'arrow',
+                    symbolSize: 15,
                     trailLength: 0
                 },
                 lineStyle: {
                     normal: {
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                             offset: 0,
-                            color: '#58B3CC'
+                            color: '#ffffff'
+                        }, {
+                            offset: 0.5,
+                            color: '#188df0'
                         }, {
                             offset: 1,
                             color: '#F58158'
                         }], false),
-                        width: 3,
+                        width: 4,
                         opacity: 0.6,
                         curveness: 0.2
                     }
                 },
-                data: [{
-                    fromName: '昆明',
-                    toName: '玉溪',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [102.543907, 24.350461, 99]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '贵阳',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [106.713478, 26.578343, 95]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '成都',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [104.065735, 30.659462, 90]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '广州',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [113.280637, 23.125178, 80]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '桂林',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [110.299121, 25.274215, 70]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '武汉',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [114.298572, 30.584355, 60]
-                    ]
-                }]
+                data: data.lines
             }]
         };
         var chart = echarts.init($('#china_map')[0]);
@@ -214,7 +324,7 @@
                         data.yAxis.data = updatedData.length === 10 ? updatedData.slice(4, 9) : updatedData;
                         //// END DANGEROUS!!!
                     }
-                    // END ALERT!!!!
+                    // END ALERT!!!!                                                    
 
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
@@ -233,7 +343,6 @@
         var barOptBase = {
             elId: 'leng-lian-frequent',
             type: 'bar',
-            color: ['#3398DB'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -241,8 +350,8 @@
                 }
             },
             grid: {
-                left: '8%',
-                top: '2%',
+                left: '4%',
+                top: '6%',
                 bottom: '0',
                 containLabel: true
             },
@@ -298,7 +407,7 @@
         var barOptBase2 = $.extend(true, {}, barOptBase, {
             elId: 'full-top5',
             grid: {
-                left: '-25%',
+                left: '-10%',
                 top: '10%',
                 containLabel: true
             },
@@ -342,7 +451,7 @@
         var barOptBase3 = $.extend(true, {}, barOptBase, {
             elId: 'full-top5',
             grid: {
-                left: '-30%',
+                left: '-15%',
                 top: '10%',
                 containLabel: true
             },
@@ -385,7 +494,7 @@
 
         // setting template of line-charts
         var lineOptBase = {
-            color: ['#3398DB'],
+            color: ['pink', 'green', 'yellow', 'grey'],
             type: 'line',
             xAxis: {
                 type: 'category',
@@ -435,26 +544,7 @@
                 bottom: '3%',
                 containLabel: true
             },
-            series: [{
-                type: 'line',
-                data: []
-            }, {
-                type: 'line',
-                lineStyle: {
-                    normal: {
-                        color: 'pink'
-                    }
-                },
-                data: []
-            }, {
-                type: 'line',
-                lineStyle: {
-                    normal: {
-                        color: 'green'
-                    }
-                },
-                data: []
-            }],
+            series: [],
             url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
         };
 
@@ -462,195 +552,43 @@
         var pieOptBase = {
             elId: 'chechang',
             type: 'pie',
+            color: ['#58C1DA', '#0BA1FC', '#41D5F2', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
             series: [{
-                hoverAnimation: true,
-                radius: [60, 80],
                 type: 'pie',
-                selectedMode: 'single',
-                selectedOffset: 16,
-                clockwise: true,
-                startAngle: 90,
+                radius: '55%',
+                center: ['50%', '50%'],
+                data: [],
                 label: {
                     normal: {
-                        textStyle: {
-                            fontSize: 18,
-                            color: '#999'
-                        }
+                        formatter: "{b} : {d}%",
+                        fontSize: 13,
+                        fontWeight: 'bold',
+                        color: '#ffffff'
                     }
                 },
                 labelLine: {
                     normal: {
                         lineStyle: {
-                            color: '#999'
-                        }
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        },
+                        smooth: 0.2,
+                        length: 10,
+                        length2: 20
                     }
                 },
-                data: [{
-                    value: 5,
-                    name: '10米以上',
-                    color: '#00abf3;'
-                }, {
-                    value: 15,
-                    name: '2~4米',
-                    color: '#00abf3;'
-                }, {
-                    value: 25,
-                    name: '4~6米',
-                    color: '#00abf3;'
-                }, {
-                    value: 35,
-                    name: '6~8米',
-                    color: '#00abf3;'
-                }, {
-                    value: 5,
-                    name: '2米以下',
-                    color: '#00abf3;'
-                }]
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function(idx) {
+                    return Math.random() * 200;
+                }
             }],
             url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=5"
-        };
-
-        // setting template of a map chart
-        var mapOptBase = {
-            elId: 'china_map',
-            backgroundColor: 'transparent',
-            geo: {
-                map: 'china',
-                label: {
-                    emphasis: {
-                        show: false
-                    }
-                },
-                roam: true,
-                itemStyle: {
-                    normal: {
-                        areaColor: 'rgba(1, 101, 204, 0.7)',
-                        borderColor: '#404a59'
-                    },
-                    emphasis: {
-                        areaColor: '#2a333d'
-                    }
-                },
-                layoutCenter: ['50%', '50%'],
-                layoutSize: 400
-            },
-            series: [{
-                name: '地点',
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                zlevel: 2,
-                rippleEffect: {
-                    brushType: 'stroke',
-                    period: 7,
-                    scale: 26
-                },
-                label: {
-                    emphasis: {
-                        show: true,
-                        position: 'right',
-                        formatter: '{b}'
-                    }
-                },
-                symbolSize: 2,
-                showEffectOn: 'render',
-                itemStyle: {
-                    normal: {
-                        color: '#46bee9'
-                    }
-                },
-                data: [{
-                    name: '昆明',
-                    value: [102.712251, 25.040609, 100]
-                }, {
-                    name: '玉溪',
-                    value: [102.543907, 24.350461, 99]
-                }, {
-                    name: '贵阳',
-                    value: [106.713478, 26.578343, 95]
-                }, {
-                    name: '成都',
-                    value: [104.065735, 30.659462, 90]
-                }, {
-                    name: '广州',
-                    value: [113.280637, 23.125178, 80]
-                }, {
-                    name: '桂林',
-                    value: [110.299121, 25.274215, 70]
-                }, {
-                    name: '武汉',
-                    value: [114.298572, 30.584355, 60]
-                }]
-            }, {
-                name: '线路',
-                type: 'lines',
-                coordinateSystem: 'geo',
-                zlevel: 2,
-                large: true,
-                effect: {
-                    show: true,
-                    constantSpeed: 30,
-                    symbol: 'arrow', //ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
-                    symbolSize: 6,
-                    trailLength: 0
-                },
-                lineStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: '#58B3CC'
-                        }, {
-                            offset: 1,
-                            color: '#F58158'
-                        }], false),
-                        width: 3,
-                        opacity: 0.6,
-                        curveness: 0.2
-                    }
-                },
-                data: [{
-                    fromName: '昆明',
-                    toName: '玉溪',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [102.543907, 24.350461, 99]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '贵阳',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [106.713478, 26.578343, 95]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '成都',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [104.065735, 30.659462, 90]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '广州',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [113.280637, 23.125178, 80]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '桂林',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [110.299121, 25.274215, 70]
-                    ]
-                }, {
-                    fromName: '昆明',
-                    toName: '武汉',
-                    coords: [
-                        [102.712251, 25.040609, 100],
-                        [114.298572, 30.584355, 60]
-                    ]
-                }]
-            }]
         };
 
         // actual configurations of all charts on the page
@@ -677,13 +615,72 @@
                 url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=6"
             }),
             option_loaded_top5: $.extend(true, {}, barOptBase3, {
-                    elId: 'loaded-top5',
-                    url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
-                }) //, // map will be generated separately
-                //option_map: mapOptBase
+                elId: 'loaded-top5',
+                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
+            })
         };
 
         return the_config;
+    }
+
+    // fetch data for china-map
+    function setupMapSeries() {
+        var coordsPromise = $.getJSON('javascripts/vendor/cn-provinces.json');
+        var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
+
+        return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
+            return generateMapData(coordsResolved[0], valuesResolved[0].data);
+        });
+    }
+
+    function generateMapData(coordsBase, values) {
+        var points = [],
+            lines = [];
+
+        points = values.map(function(item) {
+            var toName = item.valueText.split('-')[1].slice(0, 2);
+            var rtn = {};
+
+            try {
+                rtn = {
+                    name: toName,
+                    value: coordsBase[toName].concat(item.valueLong)
+                };
+            } catch (e) {
+                rtn = {};
+            }
+
+            return rtn;
+        });
+
+        lines = values.map(function(item) {
+            var fromName = item.valueText.split('-')[0].slice(0, 2);
+            var toName = item.valueText.split('-')[1].slice(0, 2);
+
+            return {
+                fromName: fromName,
+                toName: toName,
+                coords: getCoords([fromName, toName], coordsBase)
+            }
+        });
+
+        return {
+            points: points,
+            lines: lines
+        };
+    }
+
+    function getCoords(pair, coordsBase) {
+        var fromName = pair[0];
+        var toName = pair[1];
+
+        try {
+            return [coordsBase[fromName], coordsBase[toName]];
+        } catch (e) {}
+        return [
+            [],
+            []
+        ];
     }
 
     // data promise status-change event handlers
@@ -706,6 +703,13 @@
                     data: yAxis
                 },
                 series: {
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideRight',
+                            color: '#ffffff'
+                        }
+                    },
                     data: series
                 }
             };
@@ -761,6 +765,8 @@
 
         try {
             response = JSON.parse(rsp).data;
+            // each key represents a series of data of one line in the chart
+            // and sort data of each line by valueText(which represents month)
             $(Object.keys(response)).each(function(index, key) {
                 var series_i = response[key].sort(function(item1, item2) {
                     var num1 = parseInt(item1.valueText),
@@ -780,41 +786,49 @@
 
                 series.push({
                     type: 'line',
-                    data: series_i
+                    data: series_i.map(function(item) {
+                        item.name = key;
+                        return item;
+                    })
                 });
-
             });
-
-            function findValueOnXAxis(xAxis, objs) {
-                var i = 0;
-                var found = false;
-
-                for (i = 0; i < objs.length; i += 1) {
-                    if (xAxis === parseInt(objs[i].valueText)) {
-                        found = true;
-                        break;
-                    }
-                }
-
-                return found;
-            }
-
         } catch (e) {
             console.log('exception occurred!');
         }
 
         $(Object.keys(series)).each(function(index, key) {
-            var selectedArr = series[key].data.map(function(item) {
-                return item.valueLong;
+            var selectedColumns = series[key].data.map(function(item) {
+                return {
+                    name: item.name,
+                    value: item.valueLong
+                };
             });
 
-            series[key] = selectedArr;
+            series[key] = selectedColumns;
         });
 
         option = {
+            legend: {
+                data: series.map(function(item) {
+                    return item[0].name;
+                }),
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 14,
+                },
+                padding: [30, 0, 0, 0],
+                itemGap: 40,
+                itemWidth: 60
+            },
             series: series.map(function(arr) {
                 return {
                     type: "line",
+                    name: arr[0].name,
+                    lineStyle: {
+                        normal: {
+                            width: 3
+                        }
+                    },
                     data: arr
                 };
             })
@@ -847,6 +861,21 @@
                 }
         }
 
+    }
+
+    // helper functions
+    function findValueOnXAxis(xAxis, objs) {
+        var i = 0;
+        var found = false;
+
+        for (i = 0; i < objs.length; i += 1) {
+            if (xAxis === parseInt(objs[i].valueText)) {
+                found = true;
+                break;
+            }
+        }
+
+        return found;
     }
 
 }(jQuery, window, echarts))

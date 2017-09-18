@@ -14,25 +14,25 @@ a {
 }
 
 .title {
-	font-family: PingFangSC-Semibold;
-    font-size:45px;
-    font-weight: bold;
-    color: #ffffff;
-    letter-spacing: 0;
+  font-family: PingFangSC-Semibold;
+  font-size:45px;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 0;
 
-    display: block;
-    position: relative;
-    transform: translateX(-50%);
-    left: 50%;
-    text-align: center;
+  display: block;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  text-align: center;
 }
 
 .underscore {
-    display: block;
-    position: relative;
-    transform: translateX(-50%);
-    left: 50%;
-    width:  650px;
+  display: block;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  width:  650px;
 }
 
 .chart-title {
@@ -42,13 +42,13 @@ a {
 }
 
 .grids1 {
-	width: 100%;
-	display: block;
+  width: 100%;
+  display: block;
 }
 
-.column-left {
-  width: 950px;
+.column-left {  
   float: left;
+  width:  32%; 
 }
 
 .top-row {  

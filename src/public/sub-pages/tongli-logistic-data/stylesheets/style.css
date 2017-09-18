@@ -15,10 +15,10 @@ a {
 }
 
 .title {
-	font-family:PingFangSC-Semibold;
+  font-family: 'PingFangSC-Semibold';
     font-size:45px;
     font-weight: bold;
-    color:#00e4ff;
+    color: #ffffff;
     letter-spacing:0;
 
     display: block;
@@ -66,19 +66,23 @@ a {
   height:  300px;
 }
 
+.bar-row-tall {
+  height:  380px;
+}
+
 .chart-body {
   width: 100%;
   height: 270px;
 }
 
-.chart-border {  
-  border:  1px solid rgba(255, 255, 255, 0.16);
-
+.chart-border {
+  border:  2px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
 }
 
 .chart-wide {
   width:  100%;
-  height:  217px;
+  height:  280px;
 }
 
 .chart-map {
@@ -88,19 +92,35 @@ a {
 
 .chart-right {
   width:  100%;
-  height:  310px;
+  height:  410px;
 }
 
 .chart-narrow {  
-  height:  300px;
+  height:  430px;
   width:  100%;
   float:  left;
 }
 
 .bar-left {
-  width:  330px;
+  width:  430px;
+  height:  300px;
 }
 
 .bar-right {
-  width:  330px;
+  width:  430px;
+  height:  337px;
+}
+
+.map-container {  
+  background: transparent;
+  z-index: -1;
+}
+
+.the-map {
+  width: 1000px;
+  height:  1000px;
+  position: absolute;
+  top:  -200px;
+  left:  350px;
+  z-index: -1;
 }
