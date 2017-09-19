@@ -381,7 +381,7 @@
             }],
             series: [{
                 type: 'bar',
-                barWidth: '50%',
+                barWidth: '60%',
                 itemStyle: {
                     normal: {
                         barBorderRadius: [0, 80, 80, 0],
@@ -625,7 +625,7 @@
 
     // fetch data for china-map
     function setupMapSeries() {
-        var coordsPromise = $.getJSON('javascripts/vendor/cn-provinces.json');
+        var coordsPromise = $.getJSON('javascripts/vendor/indexed-city-coords.json');
         var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
 
         return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
@@ -637,21 +637,9 @@
         var points = [],
             lines = [];
 
-        points = values.map(function(item) {
-            var toName = item.valueText.split('-')[1].slice(0, 2);
-            var rtn = {};
-
-            try {
-                rtn = {
-                    name: toName,
-                    value: coordsBase[toName].concat(item.valueLong)
-                };
-            } catch (e) {
-                rtn = {};
-            }
-
-            return rtn;
-        });
+        if (!$.isArray(values)) {
+            values = values[0].concat(values[1]).concat(values[-1]);
+        }
 
         lines = values.map(function(item) {
             var fromName = item.valueText.split('-')[0].slice(0, 2);
@@ -664,10 +652,34 @@
             }
         });
 
+        points = resortPoints(lines, coordsBase);
+
         return {
             points: points,
             lines: lines
         };
+    }
+
+    // sort out points from lines, and set all value to 1
+    function resortPoints(lines, coordsBase) {
+        var points = [];
+
+        $(lines).each(function(index, line) {
+            if (points.indexOf(line.fromName) === -1) {
+                points.push({
+                    name: line.fromName,
+                    value: line.coords[0].concat(1)
+                });
+            }
+            if (points.indexOf(line.toName) === -1) {
+                points.push({
+                    name: line.toName,
+                    value: line.coords[1].concat(1)
+                });
+            }
+        });
+
+        return points;
     }
 
     function getCoords(pair, coordsBase) {
@@ -675,8 +687,25 @@
         var toName = pair[1];
 
         try {
-            return [coordsBase[fromName], coordsBase[toName]];
+            return [getCoord(fromName, coordsBase), getCoord(toName, coordsBase)];
         } catch (e) {}
+        return [
+            [],
+            []
+        ];
+    }
+
+    function getCoord(city, coordsBase) {
+        var i = 0,
+            len = coordsBase.index.length;
+
+        for (i = 0; i < len; i += 1) {
+            if (coordsBase.index[i].startsWith(city, 0)) {
+                return coordsBase.coords[i];
+            }
+        }
+
+        console.log('cannot find coordinates for: ' + city);
         return [
             [],
             []
@@ -693,8 +722,11 @@
         try {
             response = JSON.parse(rsp).data;
             $(response).each(function(index, item) {
-                series.splice(0, 0, item.valueLong);
-                // series.push(item.valueLong);
+                var actualValue = item.valueLong.endsWith('%') ?
+                    Number(item.valueLong.slice(0, item.valueLong.length - 1)) :
+                    Number(item.valueLong);
+
+                series.splice(0, 0, actualValue);
                 yAxis.push(item.valueText);
             });
 
@@ -706,7 +738,7 @@
                     label: {
                         normal: {
                             show: true,
-                            position: 'insideRight',
+                            position: 'inside',
                             color: '#ffffff'
                         }
                     },

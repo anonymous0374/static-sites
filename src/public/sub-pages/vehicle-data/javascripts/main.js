@@ -417,7 +417,7 @@
                 continue;
             }
 
-            html += '<div id="' + elId + '_' + i + '" class="' + elClass + '" data-id="' + i + '">';
+            html += '<div style="background-image: url(images/number-bg.png); margin-right: 5px;" id="' + elId + '_' + i + '" class="' + elClass + '" data-id="' + i + '">';
             html += retuen10(threshold);
             html += '</div>';
         }
@@ -430,8 +430,12 @@
             var newi = document.createElement('i')
             newi.innerHTML = arr[num[j].getAttribute("data-id")];
             num[j].querySelector("span").appendChild(newi);
+            /*
+            num[j].querySelector("span").style.webkitTransition = 'all ' + (.9 + j * .1) + 's ease-in .1s';
+            num[j].querySelector("span").style.webkitTransform = 'translate3d(0,-' + spanHeight + 'px,0)';*/
             $(num[j].querySelector("span")).css('transition', 'all ' + (.9 + j * .1) + 's ease-in .1s');
             $(num[j].querySelector("span")).css('transform', 'translate3d(0,-' + spanHeight + 'px,0)');
+
         }
     }
 

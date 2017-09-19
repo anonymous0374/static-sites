@@ -14,4 +14,6 @@ a {
 .sub-link {
 	margin:  auto;
 	text-align: left;
+	letter-spacing: 0.2em;
+	margin-bottom: 1em;
 }

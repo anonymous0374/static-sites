@@ -70,7 +70,8 @@ a {
 
 .chart-body-taller {
   width:  100%;
-  height:  470px;
+  height:  350px;
+  margin-top:  120px;
 }
 
 .chart-border {
@@ -151,7 +152,7 @@ a {
 }
 
 .total-counter {  
-  margin:  15% 10% 0 10%;
+  margin:  8% 10% 0 10%;
   height:  80px;
 }
 
@@ -166,8 +167,8 @@ a {
 }
 
 .num {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 70px;  
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -176,8 +177,8 @@ a {
 }
 
 .num1 {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 70px;  
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -186,8 +187,8 @@ a {
 }
 
 .num2 {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 70px;
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -197,13 +198,13 @@ a {
 
 span {
   display: inline-block;
-  line-height: 50px;
+  line-height: 70px;
   text-align: center;
   overflow: hidden;
 }
 span i {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 70px;
   display: block;
   text-align: center;
   font-style: normal;

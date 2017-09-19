@@ -166,28 +166,8 @@ a {
 }
 
 .num {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  color:  white;
-  font-size: 50px;
-}
-
-.num1 {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  color:  white;
-  font-size: 50px;
-}
-
-.num2 {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 70px;  
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -197,13 +177,13 @@ a {
 
 span {
   display: inline-block;
-  line-height: 50px;
+  line-height: 70px;
   text-align: center;
   overflow: hidden;
 }
 span i {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 70px;
   display: block;
   text-align: center;
   font-style: normal;
