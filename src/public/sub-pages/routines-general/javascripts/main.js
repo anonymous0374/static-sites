@@ -1,4 +1,4 @@
-(function($, host, echarts) {
+(function ($, host, echarts) {
     'use strict';
     if (!(echarts && $)) {
         alert('eCharts or jQuery libraries are not loaded properly, program exit!');
@@ -22,19 +22,19 @@
         value: 35535
     }];
 
-    $(function() { // configs for 3 counter modules
+    $(function () { // configs for 3 counter modules
         generateCounterModules(counters);
         setupMapSeries().then(generateMap);
         generateCharts();
         setInterval(generateCharts, 10000);
-        setInterval(function() {
+        setInterval(function () {
             location.reload(true);
         }, 1000 * 60 * 10);
 
     });
 
     function generateCounterModules(configs) {
-        $(configs).each(function(index, config) {
+        $(configs).each(function (index, config) {
             play(config.elId, config.elClass, config.value);
         });
     }
@@ -48,9 +48,9 @@
                 roam: true,
                 itemStyle: {
                     normal: {
-                        areaColor: 'rgba(1, 101, 204, 0.7)',
-                        borderColor: '#404a59',
-                        borderWidth: 1
+                        areaColor: 'rgba(204, 153, 51, 1)',
+                        borderColor: '#066BF6',
+                        borderWidth: 0.3
                     }
                 },
                 layoutCenter: ['50%', '60%'],
@@ -66,9 +66,8 @@
                     label: {
                         normal: {
                             show: true,
-                            color: '#ffffff;',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            color: '#fff;',
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -82,53 +81,68 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
                     name: '云南',
                     itemStyle: {
                         normal: {
-                            areaColor: 'rgb(0, 127, 213)'
+                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0.1, 0, [{
+                                offset: 0,
+                                color: '#12F2d4 ' // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: '#008223' // 100% 处的颜色
+                            }], false),
                         }
                     },
                     label: {
                         normal: {
                             show: true,
-                            color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            color: '#fff',
+                            fontSize: 18,
+                            position: 'bottom'
                         }
                     }
                 }, {
                     name: '广西',
                     itemStyle: {
                         normal: {
-                            areaColor: 'rgb(0, 215, 226)'
+                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0.1, 0, [{
+                                offset: 0,
+                                color: '#12F2d4 ' // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: '#008223' // 100% 处的颜色
+                            }], false),
                         }
                     },
                     label: {
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
                     name: '河南',
                     itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
+                        normal: {    
+                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#F5515F'
+                            }, {
+                                offset: 1,
+                                color: '#9F031B'
+                            }], false)
                         }
                     },
                     label: {
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -142,8 +156,7 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -157,8 +170,7 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -172,8 +184,7 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -187,8 +198,7 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -202,8 +212,7 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }, {
@@ -217,8 +226,7 @@
                         normal: {
                             show: true,
                             color: '#ffffff',
-                            fontSize: 25,
-                            fontWeight: 'bold'
+                            fontSize: 18,
                         }
                     }
                 }]
@@ -231,30 +239,25 @@
                 coordinateSystem: 'geo',
                 zlevel: 2,
                 rippleEffect: {
-                    period: 4,
+                    period: 14,
                     scale: 4,
                     brushType: 'stroke'
                 },
                 label: {
                     emphasis: {
                         show: true,
-                        position: 'right',
+                        position: 'left',
                         formatter: '{b}'
                     }
                 },
                 symbol: 'circle',
-                symbolSize: 20,
-                itemStyle: {
-                    normal: {
-                        color: '#46bee9'
-                    }
-                },
-                data: data.points.map(function(item) {
+                symbolSize: 50,
+                data: data.points.map(function (item) {
                     item.symbol = 'circle';
                     item.symbolSize = 10;
                     item.itemStyle = {
                         normal: {
-                            color: '#ff6666'
+                            color: 'rgba(204, 153, 51, 1)'
                         }
                     };
 
@@ -268,23 +271,14 @@
                 effect: {
                     show: true,
                     constantSpeed: 30,
-                    symbol: 'arrow',
-                    symbolSize: 15,
+                    symbol: 'pin',
+                    symbolSize: 10,
                     trailLength: 0
                 },
                 lineStyle: {
                     normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: '#ffffff'
-                        }, {
-                            offset: 0.5,
-                            color: '#188df0'
-                        }, {
-                            offset: 1,
-                            color: '#F58158'
-                        }], false),
-                        width: 4,
+                        color: 'rgba(0,0,0, 0.5)',
+                        width: 1,
                         opacity: 0.6,
                         curveness: 0.2
                     }
@@ -299,15 +293,15 @@
 
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
-        $(charts).each(function(index, item) {
+        $(charts).each(function (index, item) {
             // item.dispose();
             item.clear();
         });
 
         generateCounterModules(counters);
 
-        $(Object.keys(config)).each(function(index, key) {
-            (function() {
+        $(Object.keys(config)).each(function (index, key) {
+            (function () {
                 var chart = {};
                 var promise = $.ajax({
                     url: config[key].url
@@ -321,9 +315,9 @@
                     return;
                 }
 
-                promise.then(function(rsp) {
+                promise.then(function (rsp) {
                     return dataResolved(rsp, config[key].type);
-                }).then(function(data) {
+                }).then(function (data) {
                     var option = config[key];
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
@@ -361,7 +355,7 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff'
+                    color: '#fff'
                 },
                 axisLine: {
                     show: false
@@ -380,21 +374,17 @@
             series: [{
                 type: 'bar',
                 barWidth: '50%',
+                barMinHeight:50,
                 itemStyle: {
                     normal: {
-                        barBorderRadius: [0, 80, 80, 0],
-                        color: new echarts.graphic.LinearGradient(
-                            1, 0, 0, 0, [{
-                                offset: 0,
-                                color: '#83bef6'
-                            }, {
-                                offset: 0.5,
-                                color: '#188df0'
-                            }, {
-                                offset: 1,
-                                color: '#188df0'
-                            }]
-                        )
+                        // barBorderRadius: [0, 80, 80, 0],
+                        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                            offset: 0,
+                            color: '#00ff11 ' // 0% 处的颜色
+                        }, {
+                            offset: 1,
+                            color: '#03ac85' // 100% 处的颜色
+                        }], false),
                     }
                 },
                 data: []
@@ -405,7 +395,7 @@
         var pieOptBase = {
             elId: 'total-top5',
             type: 'pie',
-            color: ['#58C1DA', '#0BA1FC', '#41D5F2', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
+            // color: ['#58C1DA', '#0BA1FC', '#41D5F2', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
             series: [{
                 name: '解决状态',
                 type: 'pie',
@@ -416,14 +406,14 @@
                     normal: {
                         formatter: "{b} : {d}%",
                         fontSize: 13,
-                        fontWeight: 'bold',
-                        color: '#ffffff'
+                        fontWeight: 300,
+                        color: '#fff'
                     }
                 },
                 labelLine: {
                     normal: {
                         lineStyle: {
-                            color: 'rgba(255, 255, 255, 0.3)'
+                            color: 'rgba(255, 0, 255, 0.3)'
                         },
                         smooth: 0.2,
                         length: 10,
@@ -433,12 +423,33 @@
                 itemStyle: {
                     normal: {
                         shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        shadowColor: 'rgba(0, 1, 0, 0)',
+                        color: function (params) {
+                            var colorList = [
+                                ['#FBDA61', '#F76B1C'],
+                                ['#B4ED50', '#429321'],
+                                ['#12F2d4', '#008223'],
+                                ['#F5515F', '#9F031B'],
+                                ['#12FBD0', '#0082D2'],
+                                ['#F5E658', '#DF6A10'],
+                                ['#86F9A8', '#177C35'],
+                                ['#5BA4F0', '#271A5D'],
+                                ['#9044E6', '#380C7B'],
+                                ['#4E3EEC', '#180884'],
+                            ];
+                            return new echarts.graphic.LinearGradient(0, 0, .3, .1, [{
+                                color: colorList[params.dataIndex][0],
+                                offset: 0
+                            }, {
+                                color: colorList[params.dataIndex][1],
+                                offset: 1,
+                            }], false)
+                        }
                     }
                 },
                 animationType: 'scale',
                 animationEasing: 'elasticOut',
-                animationDelay: function(idx) {
+                animationDelay: function (idx) {
                     return Math.random() * 200;
                 }
             }],
@@ -465,7 +476,7 @@
         var coordsPromise = $.getJSON('javascripts/vendor/indexed-city-coords.json');
         var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
 
-        return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
+        return $.when(coordsPromise, valuePromise).then(function (coordsResolved, valuesResolved) {
             return generateMapData(coordsResolved[0], valuesResolved[0].data);
         });
     }
@@ -478,7 +489,7 @@
             values = values[0].concat(values[1]).concat(values[-1]);
         }
 
-        lines = values.map(function(item) {
+        lines = values.map(function (item) {
             var fromName = item.valueText.split('-')[0].slice(0, 2);
             var toName = item.valueText.split('-')[1].slice(0, 2);
 
@@ -501,7 +512,7 @@
     function resortPoints(lines, coordsBase) {
         var points = [];
 
-        $(lines).each(function(index, line) {
+        $(lines).each(function (index, line) {
             if (points.indexOf(line.fromName) === -1) {
                 points.push({
                     name: line.fromName,
@@ -525,7 +536,7 @@
 
         try {
             return [getCoord(fromName, coordsBase), getCoord(toName, coordsBase)];
-        } catch (e) {}
+        } catch (e) { }
         return [
             [],
             []
@@ -558,8 +569,9 @@
 
         try {
             response = JSON.parse(rsp).data;
-            $(response).each(function(index, item) {
-                var actualValue = item.valueLong.endsWith('%') ?
+            $(response).each(function (index, item) {
+                // var actualValue = item.valueLong.endsWith('%') ?
+                var actualValue = /\%$/.test(item.valueLong) ?
                     Number(item.valueLong.slice(0, item.valueLong.length - 1)) :
                     Number(item.valueLong.replace(',', ''));
 
@@ -602,7 +614,7 @@
         try {
             response = JSON.parse(rsp).data;
             response = response.slice(0, 5);
-            $(response).each(function(index, item) {
+            $(response).each(function (index, item) {
                 series.push({
                     name: item.valueText,
                     value: Number(item.valueLong.replace(',', ''))
@@ -635,15 +647,15 @@
 
         try {
             response = JSON.parse(rsp).data;
-            $(Object.keys(response)).each(function(index, key) {
-                var series_i = response[key].sort(function(item1, item2) {
+            $(Object.keys(response)).each(function (index, key) {
+                var series_i = response[key].sort(function (item1, item2) {
                     var num1 = parseInt(item1.valueText),
                         num2 = parseInt(item2.valueText);
                     return num1 - num2;
                 });
 
                 // 12 months as xAxis
-                $([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).each(function(index, item) {
+                $([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).each(function (index, item) {
                     if (!findValueOnXAxis(item, series_i)) {
                         series_i.splice(index, 0, {
                             valueText: index + 1,
@@ -663,8 +675,8 @@
             console.log('exception occurred!');
         }
 
-        $(Object.keys(series)).each(function(index, key) {
-            var selectedArr = series[key].data.map(function(item) {
+        $(Object.keys(series)).each(function (index, key) {
+            var selectedArr = series[key].data.map(function (item) {
                 return item.valueLong;
             });
 
@@ -672,7 +684,7 @@
         });
 
         option = {
-            series: series.map(function(arr) {
+            series: series.map(function (arr) {
                 return {
                     type: "line",
                     data: arr
@@ -735,7 +747,7 @@
                 continue;
             }
 
-            html += '<div style="background-image: url(images/number-bg.png); margin-right: 5px;" id="' + elId + '_' + i + '" class="' + elClass + '" data-id="' + i + '">';
+            html += '<div style="color: rgb(254, 222, 194); border-radius: 5px; background-image: url(images/number-bg.png); margin-right: 5px; position: relative;" id="' + elId + '_' + i + '" class="' + elClass + '" data-id="' + i + '">';
             html += retuen10(threshold);
             html += '</div>';
         }

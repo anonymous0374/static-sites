@@ -25,45 +25,38 @@
         
         <!-- page content goes here-->
         <div class='title-block'>
-            <div class='grids-1'><label class='title'>﻿云南省物流车辆数据展示</label></div>
+            <div class='grids-1'><label class='title'>﻿云南省物流用户画像展示</label></div>
             <div class='grids-1'><img class='underscore' src='images/underscore.png' alt='' /></div>
         </div>
-        <div class='container' style='width: 100%'>
+        <div class='container' style='width: 100%'>            
             <div class='col column-left'>
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>车辆总量</label>
+                            <label>用户角色分析</label>
                         </div>
                         <div class='chart-border'>
-                            <div class='chart-body'>
-                                <div class='counter-head'>
-                                    <span class='counter-unit'>单位：辆</span>
-                                </div>
-                                <div style='position: relative; left: 8%'>
-                                    <div id='vehicle-sum' style='text-align: center;'></div>
-                                </div>
-                            </div>
+                            <div id='user-industries' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>车型分析</label>
+                            <label>用户年龄分布</label>
                         </div>
                         <div class='chart-border'>
-                            <div id='vehicle-types' class='chart-body'></div>
+                            <div id='user-ages' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>车长分析</label>
+                            <label>用户活跃时间段分布</label>
                         </div>
-                        <div class='chart-border'>
-                            <div id='vehicle-length' class='chart-body'></div>
+                        <div class='chart-border'>                            
+                            <div id='user-active-hours' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
@@ -72,35 +65,37 @@
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>车流量分析 -- 小时</label>
+                            <label>用户消费占比</label>
                         </div>
-                        <div class='chart-border'>
-                            <div id='vehicle-hourly-flow' class='chart-body'></div>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='col'>
-                        <div class='chart-title'>
-                            <label>车流量分析 -- 星期</label>
-                        </div>
-                        <div class='chart-body chart-border'>
-                            <div id='vehicle-weekly-flow' class='chart-body'></div>
+                        <div class='chart-border'>                            
+                            <div id='user-spending' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>车流量分析 -- 月</label>
+                            <label>用户收入</label>
                         </div>
-                        <div class='chart-body chart-border'>
-                            <div id='vehicle-monthly-flow' class='chart-body'></div>
+                        <div class='chart-body chart-border'>                            
+                            <div id='user-income' class='chart-body'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='chart-title'>
+                            <label>用户社交分析</label>
+                        </div>
+                        <div class='chart-body chart-border'>                            
+                            <div id='user-social-activity' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- another div as a background layer on top of the whole background and under other contents-->        
         <div class='small-background-layer'>
         </div>
         <div class='map-container'>

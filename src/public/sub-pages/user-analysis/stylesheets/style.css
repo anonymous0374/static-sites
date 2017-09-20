@@ -14,25 +14,25 @@ a {
 }
 
 .title {
-	font-family: PingFangSC-Semibold;
-    font-size:45px;
-    font-weight: bold;
-    color: #ffffff;
-    letter-spacing: 0;
+  font-family: PingFangSC-Semibold;
+  font-size:45px;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 0;
 
-    display: block;
-    position: relative;
-    transform: translateX(-50%);
-    left: 50%;
-    text-align: center;
+  display: block;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  text-align: center;
 }
 
 .underscore {
-    display: block;
-    position: relative;
-    transform: translateX(-50%);
-    left: 50%;
-    width:  650px;
+  display: block;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  width:  650px;
 }
 
 .chart-title {
@@ -42,13 +42,18 @@ a {
 }
 
 .grids1 {
-	width: 100%;
-	display: block;
+  width: 100%;
+  display: block;
 }
 
-.column-left {
-  width: 950px;
+.column-left {  
   float: left;
+  width:  32%; 
+}
+
+.column-right {
+  float: right;
+  width:  32%;
 }
 
 .top-row {  
@@ -70,8 +75,7 @@ a {
 
 .chart-body-taller {
   width:  100%;
-  height:  350px;
-  margin-top:  120px;
+  height:  470px;
 }
 
 .chart-border {
@@ -90,11 +94,11 @@ a {
 }
 
 .the-map {
-  width: 1000px;
-  height:  1000px;
+  width: 1200px;
+  height:  1200px;
   position: absolute;
-  top:  -100px;
-  left:  850px;
+  top:  -200px;
+  left:  250px;
   z-index: -1;
 }
 
@@ -120,8 +124,8 @@ a {
 .small-background-layer {
   width:  828px;
   height:  828px;
-  left:  950px;
-  top:  80px;
+  left:  500px;
+  top:  100px;
   position:  relative;
   background-image: url('../images/background-layer.png');
 }
@@ -132,8 +136,8 @@ a {
 }
 
 .counter-label {
-  font-size: 15px;
-  font-weight: 300;
+  font-size: 14px;
+  font-weight: bold;
   color: #ffffff;
 }
 
@@ -145,14 +149,14 @@ a {
 }
 
 .counter-unit {
-  font-size:  15px;
+  font-size:  14px;
   color: #ffffff;
-  font-weight: 300;
+  font-weight: bold;
   float:  right;
 }
 
 .total-counter {  
-  margin:  8% 10% 0 10%;
+  margin:  15% 10% 0 10%;
   height:  80px;
 }
 
@@ -169,26 +173,6 @@ a {
 .num {
   width: 45px;
   height: 70px;  
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  color:  white;
-  font-size: 50px;
-}
-
-.num1 {
-  width: 45px;
-  height: 70px;  
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  color:  white;
-  font-size: 50px;
-}
-
-.num2 {
-  width: 45px;
-  height: 70px;
   position: relative;
   display: inline-block;
   overflow: hidden;
