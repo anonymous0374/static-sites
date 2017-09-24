@@ -10,11 +10,11 @@ a {
 }
 
 .title-block {
-
+    height:  10%;
 }
 
 .title {
-	font-family: PingFangSC-Semibold;
+	  font-family: PingFangSC-Semibold;
     font-size:45px;
     font-weight: bold;
     color: #ffffff;
@@ -36,9 +36,10 @@ a {
 }
 
 .chart-title {
-  font-family: 'PingFangSC-Semibold';
-  font-size:21px;
+  font-family: PingFangSC-Semibold;
+  font-size: 21px;
   color: #00abf3;
+  margin-top:  0.5em;
 }
 
 .grids1 {
@@ -46,8 +47,9 @@ a {
 	display: block;
 }
 
-.column {
-  width: 660px;
+.column {  
+  width: 640px;
+  height:  90%;
   float: left;
 }
 
@@ -57,27 +59,24 @@ a {
   float:  right;
 }
 
-.bar-row {  
-  height: 330px;
-}
-
 .bar-row-short {
   height:  300px;
 }
 
 .chart-body {
   width: 100%;
-  height: 270px;
+  height: 280px;
 }
 
 .chart-border {
   border:  2px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
 }
 
 .chart-wide {
   width:  100%;
-  height:  217px;
+  height:  300px;
 }
 
 .map-container {  
@@ -86,23 +85,12 @@ a {
 }
 
 .the-map {
-  width: 1400px;
-  height:  1400px;
+  width: 1000px;
+  height:  1000px;
   position: absolute;
-  top:  -400px;
-  left:  150px;
+  top:  -100px;
+  left:  450px;
   z-index: -1;
-}
-
-.chart-right {
-  width:  100%;
-  height:  310px;
-}
-
-.chart-narrow {
-  height:  300px;
-  width:  100%;
-  float:  left;
 }
 
 .bar-left {

@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="stylesheets/style.css">
         <script src='javascripts/vendor/echarts.js'></script>
     </head>
-    <body>
+    <body style='overflow: hidden;'>
         <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
@@ -26,7 +26,7 @@
         <!-- page content goes here-->
         <div class='title-block'>
             <div class='grids-1'><label class='title'>﻿云南省物流用户画像展示</label></div>
-            <div class='grids-1'><img class='underscore' src='images/underscore.png' alt='' /></div>
+            <div class='grids-1' style='margin-top: 20px;'><img class='underscore' src='images/underscore.png' alt='' /></div>
         </div>
         <div class='container' style='width: 100%'>            
             <div class='col column-left'>
@@ -65,7 +65,7 @@
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>用户消费占比</label>
+                            <label>用户服务类型占比</label>
                         </div>
                         <div class='chart-border'>                            
                             <div id='user-spending' class='chart-body'></div>
@@ -75,20 +75,20 @@
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>用户收入</label>
+                            <label>用户活跃城市 top5</label>
                         </div>
                         <div class='chart-body chart-border'>                            
-                            <div id='user-income' class='chart-body'></div>
+                            <div id='active-cities-top5' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col'>
                         <div class='chart-title'>
-                            <label>用户社交分析</label>
+                            <label>用户活跃月份分布</label>
                         </div>
                         <div class='chart-body chart-border'>                            
-                            <div id='user-social-activity' class='chart-body'></div>
+                            <div id='user-active-months' class='chart-body'></div>
                         </div>
                     </div>
                 </div>
@@ -96,8 +96,8 @@
         </div>
 
         <!-- another div as a background layer on top of the whole background and under other contents-->        
-        <div class='small-background-layer'>
-        </div>
+        <!--<div class='small-background-layer'>
+        </div>-->
         <div class='map-container'>
             <div  class='the-map' id="china_map">
             </div>

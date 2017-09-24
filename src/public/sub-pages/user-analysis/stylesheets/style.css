@@ -10,7 +10,7 @@ a {
 }
 
 .title-block {
-
+    margin-bottom: 20px;
 }
 
 .title {
@@ -48,12 +48,12 @@ a {
 
 .column-left {  
   float: left;
-  width:  32%; 
+  width:  25%; 
 }
 
 .column-right {
   float: right;
-  width:  32%;
+  width:  25%;
 }
 
 .top-row {  
@@ -80,6 +80,7 @@ a {
 
 .chart-border {
   border:  2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
 }
 
@@ -94,12 +95,12 @@ a {
 }
 
 .the-map {
-  width: 1200px;
-  height:  1200px;
-  position: absolute;
-  top:  -200px;
-  left:  250px;
-  z-index: -1;
+    width: 5000px;
+    height: 5000px;
+    position: absolute;
+    top:  -3600px;
+    left:  -1350px;
+    z-index: -1;
 }
 
 .chart-right {

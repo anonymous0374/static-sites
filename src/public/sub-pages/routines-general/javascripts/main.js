@@ -1,13 +1,38 @@
-(function ($, host, echarts) {
+(function($, host, echarts) {
     'use strict';
     if (!(echarts && $)) {
         alert('eCharts or jQuery libraries are not loaded properly, program exit!');
         return;
     }
 
+    var env = {
+        dev: {
+            enabled: false,
+            urlPrefix: 'http://localhost:3010'
+        },
+        test: {
+            enabled: true,
+            urlPrefix: 'http://statictest.tf56.com'
+                // urlPrefix: ''
+        },
+        prod: {
+            enabled: false,
+            urlPrefix: 'http://data.tf56.com'
+                // urlPrefix: ''
+        },
+        getUrlPrefix: function() {
+            if (this.dev.enabled) {
+                return this.dev.urlPrefix;
+            } else if (this.test.enabled) {
+                return this.test.urlPrefix;
+            } else if (this.prod.enabled) {
+                return this.prod.urlPrefix;
+            }
+        }
+    };
+
     var config = getConfigTemplate(); // get basic configs of all charts on this page
-    var charts = []; // eChart instances
-    var counters = []; // counter instances
+    var charts = []; // eChart instances    
     var counters = [{
         elId: 'num',
         elClass: 'num',
@@ -22,22 +47,48 @@
         value: 35535
     }];
 
-    $(function () { // configs for 3 counter modules
+    $(function() { // configs for 3 counter modules
         generateCounterModules(counters);
         setupMapSeries().then(generateMap);
         generateCharts();
         setInterval(generateCharts, 10000);
-        setInterval(function () {
+
+        setInterval(function() {
             location.reload(true);
         }, 1000 * 60 * 10);
 
     });
 
     function generateCounterModules(configs) {
-        $(configs).each(function (index, config) {
+        $(configs).each(function(index, config) {
             play(config.elId, config.elClass, config.value);
         });
     }
+
+    /////////// Counter handlers ////////////////
+    function handleCounters() {
+        var prefix = env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=';
+        var ajaxList = ('8 1 2').split(' ').map(function(v) {
+            return $.get(prefix + v);
+        });
+
+        $.when.apply($, ajaxList)
+            .done(function(arrRes0, arrRes1, arrRes2) {
+                handleCounters.setCounter(arrRes0, 0);
+                handleCounters.setCounter(arrRes1, 1);
+                handleCounters.setCounter(arrRes2, 2);
+                // render
+                generateCounterModules(counters);
+            });
+    }
+
+    handleCounters.setCounter = function(arr, index) {
+        var res = JSON.parse(arr[0]);
+        if (res && res.result === 'success' && counters[index]) {
+            counters[index].value = parseInt(res.data[0].valueLong.replace(/\,/g, ''));
+        }
+    };
+    /////////// Counter handlers ////////////////
 
     function generateMap(data) {
         var mapOptBase = {
@@ -48,190 +99,34 @@
                 roam: true,
                 itemStyle: {
                     normal: {
-                        areaColor: 'rgba(204, 153, 51, 1)',
-                        borderColor: '#066BF6',
-                        borderWidth: 0.3
+                        areaColor: 'rgba(1, 101, 204, 0.7)',
+                        borderColor: '#404a59',
+                        borderWidth: 1,
+                        color: 'rgba(51, 69, 89, .5)',
+                        borderColor: 'rgba(100,149,237,1)'
                     }
                 },
                 layoutCenter: ['50%', '60%'],
                 layoutSize: 1000,
                 selectedMode: true,
-                regions: [{
-                    name: '四川',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#fff;',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '广东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
+                regions: [{ // an example region item
                     name: '云南',
                     itemStyle: {
                         normal: {
-                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0.1, 0, [{
-                                offset: 0,
-                                color: '#12F2d4 ' // 0% 处的颜色
-                            }, {
-                                offset: 1,
-                                color: '#008223' // 100% 处的颜色
-                            }], false),
+                            // areaColor: 'rgb(0, 215, 226)'
                         }
                     },
                     label: {
                         normal: {
-                            show: true,
-                            color: '#fff',
-                            fontSize: 18,
-                            position: 'bottom'
-                        }
-                    }
-                }, {
-                    name: '广西',
-                    itemStyle: {
-                        normal: {
-                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0.1, 0, [{
-                                offset: 0,
-                                color: '#12F2d4 ' // 0% 处的颜色
-                            }, {
-                                offset: 1,
-                                color: '#008223' // 100% 处的颜色
-                            }], false),
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
+                            show: false,
                             color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '河南',
-                    itemStyle: {
-                        normal: {    
-                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#F5515F'
-                            }, {
-                                offset: 1,
-                                color: '#9F031B'
-                            }], false)
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '湖南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 212, 170)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '贵州',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '浙江',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '江苏',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 127, 213)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '重庆',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
-                        }
-                    }
-                }, {
-                    name: '山东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 18,
+                            fontSize: 30,
+                            fontWeight: 'bold'
                         }
                     }
                 }]
             },
-            series: [{
+            series: [{ // an example of a point item(will be overwrite by actual data)
                 name: '地点',
                 type: 'effectScatter',
                 effectType: 'ripple',
@@ -239,45 +134,64 @@
                 coordinateSystem: 'geo',
                 zlevel: 2,
                 rippleEffect: {
-                    period: 14,
+                    period: 4,
                     scale: 4,
                     brushType: 'stroke'
                 },
-                label: {
-                    emphasis: {
-                        show: true,
-                        position: 'left',
-                        formatter: '{b}'
+                symbol: 'pin',
+                symbolSize: 15,
+                itemStyle: {
+                    normal: {
+                        color: '#46bee9'
                     }
                 },
-                symbol: 'circle',
-                symbolSize: 50,
-                data: data.points.map(function (item) {
-                    item.symbol = 'circle';
-                    item.symbolSize = 10;
-                    item.itemStyle = {
-                        normal: {
-                            color: 'rgba(204, 153, 51, 1)'
-                        }
-                    };
+                data: data.points.map(function(item) {
+                    if (item.name === '云南') {
+                        item.symbol = 'circle'; // 'image://images/logo.png'
+                        item.symbolSize = 10;
+                        item.itemStyle = {
+                            normal: {
+                                color: 'red',
+                                fontSize: 20
+                            }
+                        };
+
+                    } else {
+                        item.symbol = 'circle'; // 'image://images/logo.png'
+                        item.symbolSize = 5;
+                        item.itemStyle = {
+                            normal: {
+                                color: 'gold'
+                            }
+                        };
+                        item.label = {
+                            normal: {
+                                show: true,
+                                formatter: '{b}',
+                                fontSize: 13,
+                                color: '#fff',
+                                position: 'right'
+                            }
+                        };
+                    }
 
                     return item;
                 })
-            }, {
+            }, { // an example of a line item(will be overwrite by actual data)
                 name: '线路',
                 type: 'lines',
                 coordinateSystem: 'geo',
-                zlevel: 2,
+                zlevel: 1,
                 effect: {
                     show: true,
-                    constantSpeed: 30,
+                    constantSpeed: 60,
                     symbol: 'pin',
                     symbolSize: 10,
                     trailLength: 0
                 },
                 lineStyle: {
                     normal: {
-                        color: 'rgba(0,0,0, 0.5)',
+                        color: '#05FBC4', // 飞行图标
                         width: 1,
                         opacity: 0.6,
                         curveness: 0.2
@@ -290,34 +204,45 @@
         chart.setOption(mapOptBase);
     }
 
-
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
-        $(charts).each(function (index, item) {
+        $(charts).each(function(index, item) {
             // item.dispose();
             item.clear();
         });
 
-        generateCounterModules(counters);
+        handleCounters();
 
-        $(Object.keys(config)).each(function (index, key) {
-            (function () {
+        $(Object.keys(config)).each(function(index, key) {
+            (function() {
                 var chart = {};
                 var promise = $.ajax({
                     url: config[key].url
                 });
-                var $chart = $('#' + config[key].elId);
+                var elId = config[key].elId;
+
+                var $chart = $('#' + elId);
                 if ($chart.length > 0) { // check if element exists for safty
-                    chart = echarts.init($chart[0]);
-                    charts.push(chart); // closure
+                    for (var i = 0; i < charts.length; i += 1) {
+                        if (charts[i].elId === elId) { // the chart instance has already been initialized before
+                            chart = charts[i];
+                            break;
+                        }
+                    }
+
+                    if (!chart.elId) { // no such chart in charts yet
+                        chart = echarts.init($chart[0]);
+                        chart.elId = elId;
+                        charts.push(chart);
+                    }
                 } else {
                     console.log('cannot find element for the chart: ' + config[key].elId);
                     return;
                 }
 
-                promise.then(function (rsp) {
+                promise.then(function(rsp) {
                     return dataResolved(rsp, config[key].type);
-                }).then(function (data) {
+                }).then(function(data) {
                     var option = config[key];
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
@@ -355,7 +280,7 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#fff'
+                    color: '#ffffff'
                 },
                 axisLine: {
                     show: false
@@ -374,17 +299,22 @@
             series: [{
                 type: 'bar',
                 barWidth: '50%',
-                barMinHeight:50,
+                barMinHeight: 50,
                 itemStyle: {
                     normal: {
-                        // barBorderRadius: [0, 80, 80, 0],
-                        color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
-                            offset: 0,
-                            color: '#00ff11 ' // 0% 处的颜色
-                        }, {
-                            offset: 1,
-                            color: '#03ac85' // 100% 处的颜色
-                        }], false),
+                        barBorderRadius: [0, 80, 80, 0],
+                        color: new echarts.graphic.LinearGradient(
+                            1, 0, 0, 0, [{
+                                offset: 0,
+                                color: '#83bef6'
+                            }, {
+                                offset: 0.5,
+                                color: '#188df0'
+                            }, {
+                                offset: 1,
+                                color: '#188df0'
+                            }]
+                        )
                     }
                 },
                 data: []
@@ -395,7 +325,7 @@
         var pieOptBase = {
             elId: 'total-top5',
             type: 'pie',
-            // color: ['#58C1DA', '#0BA1FC', '#41D5F2', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
+            color: ['#00ecd5', '#00b0fe', '#3dd1e3', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
             series: [{
                 name: '解决状态',
                 type: 'pie',
@@ -405,15 +335,14 @@
                 label: {
                     normal: {
                         formatter: "{b} : {d}%",
-                        fontSize: 13,
-                        fontWeight: 300,
-                        color: '#fff'
+                        fontSize: 12,
+                        color: '#ffffff'
                     }
                 },
                 labelLine: {
                     normal: {
                         lineStyle: {
-                            color: 'rgba(255, 0, 255, 0.3)'
+                            color: 'rgba(255, 255, 255, 0.3)'
                         },
                         smooth: 0.2,
                         length: 10,
@@ -424,46 +353,27 @@
                     normal: {
                         shadowBlur: 200,
                         shadowColor: 'rgba(0, 1, 0, 0)',
-                        color: function (params) {
-                            var colorList = [
-                                ['#FBDA61', '#F76B1C'],
-                                ['#B4ED50', '#429321'],
-                                ['#12F2d4', '#008223'],
-                                ['#F5515F', '#9F031B'],
-                                ['#12FBD0', '#0082D2'],
-                                ['#F5E658', '#DF6A10'],
-                                ['#86F9A8', '#177C35'],
-                                ['#5BA4F0', '#271A5D'],
-                                ['#9044E6', '#380C7B'],
-                                ['#4E3EEC', '#180884'],
-                            ];
-                            return new echarts.graphic.LinearGradient(0, 0, .3, .1, [{
-                                color: colorList[params.dataIndex][0],
-                                offset: 0
-                            }, {
-                                color: colorList[params.dataIndex][1],
-                                offset: 1,
-                            }], false)
-                        }
+                        borderWidth: 1,
+                        borderColor: 'white'
                     }
                 },
                 animationType: 'scale',
                 animationEasing: 'elasticOut',
-                animationDelay: function (idx) {
+                animationDelay: function(idx) {
                     return Math.random() * 200;
                 }
             }],
-            url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=3"
+            url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=3"
         };
 
         // actual configurations of all charts on the page
         var the_config = {
             option_in_top5: $.extend(true, {}, barOptBase, {
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=4"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=4"
             }),
             option_out_top5: $.extend(true, {}, barOptBase, {
                 elId: 'out-top5',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=5"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=5"
             }),
             option_chechang_pie: pieOptBase
         }
@@ -474,9 +384,9 @@
     // fetch data for china-map
     function setupMapSeries() {
         var coordsPromise = $.getJSON('javascripts/vendor/indexed-city-coords.json');
-        var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
+        var valuePromise = $.getJSON(env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
 
-        return $.when(coordsPromise, valuePromise).then(function (coordsResolved, valuesResolved) {
+        return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
             return generateMapData(coordsResolved[0], valuesResolved[0].data);
         });
     }
@@ -489,13 +399,15 @@
             values = values[0].concat(values[1]).concat(values[-1]);
         }
 
-        lines = values.map(function (item) {
-            var fromName = item.valueText.split('-')[0].slice(0, 2);
-            var toName = item.valueText.split('-')[1].slice(0, 2);
+        lines = values.map(function(item) {
+            var fromNameOriginal = item.valueText.split('-')[0];
+            var fromName = fromNameOriginal.slice(0, 2);
+            var toNameOriginal = item.valueText.split('-')[1];
+            var toName = toNameOriginal.slice(0, 2);
 
             return {
-                fromName: fromName,
-                toName: toName,
+                fromName: fromNameOriginal,
+                toName: toNameOriginal,
                 coords: getCoords([fromName, toName], coordsBase)
             }
         });
@@ -512,7 +424,7 @@
     function resortPoints(lines, coordsBase) {
         var points = [];
 
-        $(lines).each(function (index, line) {
+        $(lines).each(function(index, line) {
             if (points.indexOf(line.fromName) === -1) {
                 points.push({
                     name: line.fromName,
@@ -536,7 +448,7 @@
 
         try {
             return [getCoord(fromName, coordsBase), getCoord(toName, coordsBase)];
-        } catch (e) { }
+        } catch (e) {}
         return [
             [],
             []
@@ -569,13 +481,12 @@
 
         try {
             response = JSON.parse(rsp).data;
-            $(response).each(function (index, item) {
-                // var actualValue = item.valueLong.endsWith('%') ?
-                var actualValue = /\%$/.test(item.valueLong) ?
+            $(response).each(function(index, item) {
+                var actualValue = item.valueLong.endsWith('%') ?
                     Number(item.valueLong.slice(0, item.valueLong.length - 1)) :
                     Number(item.valueLong.replace(',', ''));
 
-                series.splice(0, 0, actualValue);
+                series.push(actualValue);
                 yAxis.push(item.valueText);
             });
 
@@ -614,7 +525,7 @@
         try {
             response = JSON.parse(rsp).data;
             response = response.slice(0, 5);
-            $(response).each(function (index, item) {
+            $(response).each(function(index, item) {
                 series.push({
                     name: item.valueText,
                     value: Number(item.valueLong.replace(',', ''))
@@ -647,15 +558,15 @@
 
         try {
             response = JSON.parse(rsp).data;
-            $(Object.keys(response)).each(function (index, key) {
-                var series_i = response[key].sort(function (item1, item2) {
+            $(Object.keys(response)).each(function(index, key) {
+                var series_i = response[key].sort(function(item1, item2) {
                     var num1 = parseInt(item1.valueText),
                         num2 = parseInt(item2.valueText);
                     return num1 - num2;
                 });
 
                 // 12 months as xAxis
-                $([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).each(function (index, item) {
+                $([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).each(function(index, item) {
                     if (!findValueOnXAxis(item, series_i)) {
                         series_i.splice(index, 0, {
                             valueText: index + 1,
@@ -675,8 +586,8 @@
             console.log('exception occurred!');
         }
 
-        $(Object.keys(series)).each(function (index, key) {
-            var selectedArr = series[key].data.map(function (item) {
+        $(Object.keys(series)).each(function(index, key) {
+            var selectedArr = series[key].data.map(function(item) {
                 return item.valueLong;
             });
 
@@ -684,7 +595,7 @@
         });
 
         option = {
-            series: series.map(function (arr) {
+            series: series.map(function(arr) {
                 return {
                     type: "line",
                     data: arr
@@ -747,7 +658,7 @@
                 continue;
             }
 
-            html += '<div style="color: rgb(254, 222, 194); border-radius: 5px; background-image: url(images/number-bg.png); margin-right: 5px; position: relative;" id="' + elId + '_' + i + '" class="' + elClass + '" data-id="' + i + '">';
+            html += '<div style="border-radius: 5px; background-image: url(images/number-bg.png); margin-right: 5px; position: relative;" id="' + elId + '_' + i + '" class="' + elClass + '" data-id="' + i + '">';
             html += retuen10(threshold);
             html += '</div>';
         }
@@ -760,9 +671,6 @@
             var newi = document.createElement('i')
             newi.innerHTML = arr[num[j].getAttribute("data-id")];
             num[j].querySelector("span").appendChild(newi);
-            /*
-            num[j].querySelector("span").style.webkitTransition = 'all ' + (.9 + j * .1) + 's ease-in .1s';
-            num[j].querySelector("span").style.webkitTransform = 'translate3d(0,-' + spanHeight + 'px,0)';*/
             $(num[j].querySelector("span")).css('transition', 'all ' + (.9 + j * .1) + 's ease-in .1s');
             $(num[j].querySelector("span")).css('transform', 'translate3d(0,-' + spanHeight + 'px,0)');
 

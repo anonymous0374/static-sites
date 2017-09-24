@@ -5,6 +5,32 @@
         return;
     }
 
+    var env = {
+        dev: {
+            enabled: false,
+            urlPrefix: 'http://localhost:3010'
+        },
+        test: {
+            enabled: true,
+            urlPrefix: 'http://statictest.tf56.com'
+                // urlPrefix: ''
+        },
+        prod: {
+            enabled: false,
+            urlPrefix: 'http://data.tf56.com'
+                // urlPrefix: ''
+        },
+        getUrlPrefix: function() {
+            if (this.dev.enabled) {
+                return this.dev.urlPrefix;
+            } else if (this.test.enabled) {
+                return this.test.urlPrefix;
+            } else if (this.prod.enabled) {
+                return this.prod.urlPrefix;
+            }
+        }
+    };
+
     var config = getConfigTemplate(); // get basic configs of all charts on this page
     var charts = []; // eChart instances
 
@@ -36,178 +62,24 @@
                     normal: {
                         areaColor: 'rgba(1, 101, 204, 0.7)',
                         borderColor: '#404a59',
-                        borderWidth: 1
+                        borderWidth: 1,
+                        color: 'rgba(51, 69, 89, .5)',
+                        borderColor: 'rgba(100,149,237,1)'
                     }
                 },
                 layoutCenter: ['50%', '60%'],
-                layoutSize: 1400,
+                layoutSize: 1000,
                 selectedMode: true,
-                regions: [{
-                    name: '四川',
-                    itemStyle: {
-                        normal: {
-                            areaColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#30A6EF'
-                            }, {
-                                offset: 1,
-                                color: '#0091EB'
-                            }], false),
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff;',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '广东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
+                regions: [{ // an example region item
                     name: '云南',
                     itemStyle: {
                         normal: {
-                            areaColor: 'rgb(0, 127, 213)'
+                            // areaColor: 'rgb(0, 215, 226)'
                         }
                     },
                     label: {
                         normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '广西',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '河南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '湖南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 212, 170)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '贵州',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '浙江',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '江苏',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 127, 213)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '重庆',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 30,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '山东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
+                            show: false,
                             color: '#ffffff',
                             fontSize: 30,
                             fontWeight: 'bold'
@@ -215,7 +87,7 @@
                     }
                 }]
             },
-            series: [{
+            series: [{ // an example of a point item(will be overwrite by actual data)
                 name: '地点',
                 type: 'effectScatter',
                 effectType: 'ripple',
@@ -227,15 +99,8 @@
                     scale: 4,
                     brushType: 'stroke'
                 },
-                label: {
-                    emphasis: {
-                        show: true,
-                        position: 'right',
-                        formatter: '{b}'
-                    }
-                },
                 symbol: 'pin',
-                symbolSize: 15,
+                symbolSize: 10,
                 itemStyle: {
                     normal: {
                         color: '#46bee9'
@@ -244,24 +109,38 @@
                 data: data.points.map(function(item) {
                     item.symbol = 'circle';
                     item.symbolSize = 10;
+                    item.label = {
+                        normal: {
+                            show: true,
+                            formatter: '{b}',
+                            fontSize: 13,
+                            color: '#ffffff',
+                            position: 'right'
+                        }
+                    };
                     item.itemStyle = {
                         normal: {
-                            color: '#ff6666'
+                            // color: '#ff6666'
+                            color: 'gold'
                         }
                     };
 
+                    if (item.name === '玉溪') {
+                        item.itemStyle.normal.color = 'red';
+                    }
+
                     return item;
                 })
-            }, {
+            }, { // an example of a line item(will be overwrite by actual data)
                 name: '线路',
                 type: 'lines',
                 coordinateSystem: 'geo',
                 zlevel: 1,
                 effect: {
                     show: true,
-                    constantSpeed: 100,
+                    constantSpeed: 60,
                     symbol: 'pin',
-                    symbolSize: 15,
+                    symbolSize: 10,
                     trailLength: 0
                 },
                 lineStyle: {
@@ -282,7 +161,7 @@
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
         $(charts).each(function(index, item) {
-            item.chart.clear();
+            item.clear();
         });
 
         $(Object.keys(config)).each(function(index, key) {
@@ -291,13 +170,22 @@
                 var promise = $.ajax({
                     url: config[key].url
                 });
-                var $chart = $('#' + config[key].elId);
+                var elId = config[key].elId;
+
+                var $chart = $('#' + elId);
                 if ($chart.length > 0) { // check if element exists for safty
-                    chart = echarts.init($chart[0]);
-                    charts.push({ // closure
-                        chartId: config[key].elId,
-                        chart: chart
-                    });
+                    for (var i = 0; i < charts.length; i += 1) {
+                        if (charts[i].elId === elId) { // the chart instance has already been initialized before
+                            chart = charts[i];
+                            break;
+                        }
+                    }
+
+                    if (!chart.elId) { // no such chart in charts yet
+                        chart = echarts.init($chart[0]);
+                        chart.elId = elId;
+                        charts.push(chart);
+                    }
                 } else {
                     console.log('cannot find element for the chart: ' + config[key].elId);
                     return;
@@ -338,7 +226,6 @@
     }
 
     /////////////////////  CONFIGURATIONS BELOW //////////////////////////////////////////////
-
 
     // specific configurations for each chart
     function getConfigTemplate() {
@@ -509,7 +396,6 @@
                     color: 'white',
                     opacity: 0.7
                 },
-                // name: 'x',
                 splitLine: {
                     show: true,
                     lineStyle: {
@@ -548,13 +434,14 @@
                 containLabel: true
             },
             series: [],
-            url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
+            url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
         };
 
         // setting template of a pie chart
         var pieOptBase = {
             elId: 'chechang',
             type: 'pie',
+            color: ['#00ecd5', '#00b0fe', '#3dd1e3', '#ADDD8E', '#467EFF', '#FF7145', '#76FFE7', '#FFD376'],
             series: [{
                 type: 'pie',
                 radius: '55%',
@@ -563,8 +450,7 @@
                 label: {
                     normal: {
                         formatter: "{b} : {d}%",
-                        fontSize: 13,
-                        fontWeight: 'bold',
+                        fontSize: 12,
                         color: '#ffffff'
                     }
                 },
@@ -581,28 +467,7 @@
                 itemStyle: {
                     normal: {
                         shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 1)',
-                        color: function(params) {
-                            var colorList = [
-                                ['#FBDA61', '#F76B1C'],
-                                // ['#B4ED50', '#429321'],
-                                // ['#12F2d4', '#008223'],
-                                ['#F5515F', '#9F031B'],
-                                ['#12FBD0', '#0082D2'],
-                                // ['#F5E658', '#DF6A10'],
-                                ['#86F9A8', '#177C35'],
-                                ['#5BA4F0', '#271A5D'],
-                                ['#9044E6', '#380C7B'],
-                                ['#4E3EEC', '#180884'],
-                            ];
-                            return new echarts.graphic.LinearGradient(0, 0, .3, .1, [{
-                                color: colorList[params.dataIndex][0],
-                                offset: 0
-                            }, {
-                                color: colorList[params.dataIndex][1],
-                                offset: 1,
-                            }], false)
-                        }
+                        shadowColor: 'rgba(0, 0, 0, 1)'
                     }
                 },
                 animationType: 'scale',
@@ -611,35 +476,35 @@
                     return Math.random() * 200;
                 }
             }],
-            url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=5"
+            url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=5"
         };
 
         // actual configurations of all charts on the page
         var the_config = {
             // add shadows to bars
             option_lenglian_frequent_bar: $.extend(true, {}, barOptBase, {
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=1"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=1"
             }),
             option_lingdan_frequent_bar: $.extend(true, {}, barOptBase, {
                 elId: 'lingdan-frequent',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=2"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=2"
             }),
             option_juanyan_frequent_bar: $.extend(true, {}, barOptBase, {
                 elId: 'juanyan-frequent',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=3"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=3"
             }),
             option_order_trends_line: $.extend(true, {}, lineOptBase, {
                 elId: 'order-trends',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
             }),
             option_chechang_pie: pieOptBase,
             option_empty_top5: $.extend(true, {}, barOptBase2, {
                 elId: 'empty-top5',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=6"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=6"
             }),
             option_loaded_top5: $.extend(true, {}, barOptBase3, {
                 elId: 'loaded-top5',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=7"
             })
         };
 
@@ -649,7 +514,7 @@
     // fetch data for china-map
     function setupMapSeries() {
         var coordsPromise = $.getJSON('javascripts/vendor/indexed-city-coords.json');
-        var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
+        var valuePromise = $.getJSON(env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=8');
 
         return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
             return generateMapData(coordsResolved[0], valuesResolved[0].data);
@@ -665,12 +530,14 @@
         }
 
         lines = values.map(function(item) {
-            var fromName = item.valueText.split('-')[0].slice(0, 2);
-            var toName = item.valueText.split('-')[1].slice(0, 2);
+            var fromNameOriginal = item.valueText.split('-')[0];
+            var fromName = fromNameOriginal.slice(0, 2);
+            var toNameOriginal = item.valueText.split('-')[1];
+            var toName = toNameOriginal.slice(0, 2);
 
             return {
-                fromName: fromName,
-                toName: toName,
+                fromName: fromNameOriginal,
+                toName: toNameOriginal,
                 coords: getCoords([fromName, toName], coordsBase)
             }
         });
@@ -745,11 +612,11 @@
         try {
             response = JSON.parse(rsp).data;
             $(response).each(function(index, item) {
-                var actualValue = item.valueLong.endsWith('%') ?
+                var valueInNumber = /\%$/.test(item.valueLong) ?
                     Number(item.valueLong.slice(0, item.valueLong.length - 1)) :
                     Number(item.valueLong);
 
-                series.splice(0, 0, actualValue);
+                series.push(valueInNumber);
                 yAxis.push(item.valueText);
             });
 
@@ -762,7 +629,8 @@
                         normal: {
                             show: true,
                             position: 'inside',
-                            color: '#ffffff'
+                            color: '#ffffff',
+                            formatter: "{c}%"
                         }
                     },
                     data: series

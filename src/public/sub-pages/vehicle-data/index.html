@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="stylesheets/style.css">
         <script src='javascripts/vendor/echarts.js'></script>
     </head>
-    <body>
+    <body style='overflow: hidden;'>
         <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
@@ -26,7 +26,7 @@
         <!-- page content goes here-->
         <div class='title-block'>
             <div class='grids-1'><label class='title'>﻿云南省物流车辆数据展示</label></div>
-            <div class='grids-1'><img class='underscore' src='images/underscore.png' alt='' /></div>
+            <div class='grids-1' style='margin-top: 20px;'><img class='underscore' src='images/underscore.png' alt='' /></div>
         </div>
         <div class='container' style='width: 100%'>
             <div class='col column-left'>
@@ -40,9 +40,7 @@
                                 <div class='counter-head'>
                                     <span class='counter-unit'>单位：辆</span>
                                 </div>
-                                <div style='position: relative; left: 8%'>
-                                    <div id='vehicle-sum' style='text-align: center;'></div>
-                                </div>
+                                <div id='vehicle-sum' style='text-align: center;'></div>
                             </div>
                         </div>
                     </div>
@@ -101,8 +99,8 @@
                 </div>
             </div>
         </div>
-        <div class='small-background-layer'>
-        </div>
+        <!--<div class='small-background-layer'>
+        </div>-->
         <div class='map-container'>
             <div  class='the-map' id="china_map">
             </div>

@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title></title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
         <link rel="apple-touch-icon" href="icon.png">
         <!-- Place favicon.ico in the root directory -->
@@ -30,79 +30,93 @@
         </div>
         <!-- column left -->
         <div class='container column'>
-            <div class='row bar-row'>
-                <div class='col bar-small'>
+            <div class='row'>
+                <div class='col'>
                     <div class='chart-title'>
-                        <label>冷链常跑路线</label>
+                        <label>冷链常跑路线 Top 10</label>
                     </div>
-                    <div id='leng-lian-frequent' class='chart-body chart-border'></div>
+                    <div class='chart-border'>
+                        <div id='leng-lian-frequent' class='chart-body'></div>
+                    </div>
                 </div>
-                <div class='col bar-small'>
+                <div class='col'>
                     <div class='chart-title'>
-                        <label>零担常跑路线</label>
+                        <label>零担常跑路线 Top 10</label>
                     </div>
-                    <div id='lingdan-frequent' class='chart-body chart-border'></div>
+                    <div class='chart-border'>
+                        <div id='lingdan-frequent' class='chart-body'></div>
+                    </div>
                 </div>
             </div>
-            <div class='row bar-row'>
-                <div class='col bar-small'>
+            <div class='row'>
+                <div class='col'>
                     <div class='chart-title'>
-                        <label>卷烟常跑路线</label>
+                        <label>卷烟常跑路线 Top 10</label>
                     </div>
-                    <div id='juanyan-frequent' class='chart-body chart-border'></div>
+                    <div class='chart-border'>
+                        <div id='juanyan-frequent' class='chart-body'></div>
+                    </div>
                 </div>
-                <!-- <div class='col'></div> -->
             </div>
-            <div class='row bar-row'>
-                <div class='col bar-large'>
+            <div class='row'>
+                <div class='col'>
                     <div class='chart-title'>
                         <label>订单走势</label>
                     </div>
-                    <div id='order-trends' class='chart-wide chart-border'></div>
+                    <div class='chart-border'>
+                        <div id='order-trends' class='chart-body'></div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
         <!-- column middle -->
         <div class='container column'>
-            <div class='row'>        
+            <div class='row'>
             </div>
         </div>
         <!-- column right -->
         <div class='container column-right'>
-            <div class='row bar-row-short'>
+            <div class='row'>
                 <div class='col'>
                     <div class='chart-title'>
                         <label>车长占比</label>
                     </div>
-                    <div class='chart-right chart-border' style='height: 260px;' id='chechang'></div>
+                    <div class='chart-border'>
+                        <div class='chart-right chart-body' id='chechang'></div>
+                    </div>
+                    
                 </div>
             </div>
-            <div class='row bar-row-short'>
+            <div class='row'>
                 <div class='col'>
                     <div class='chart-title'>
-                        <label>空载Top5路线</label>
+                        <label>空载路线 Top5</label>
                     </div>
-                    <div class='chart-right chart-border' id='empty-top5' style='height: 260px;'></div>
+                    <div class='chart-border'>
+                        <div class='chart-right chart-body' id='empty-top5'></div>
+                    </div>
                 </div>
             </div>
-            <div class='row bar-row-short'>
+            <div class='row'>
                 <div class='col'>
                     <div class='chart-title'>
-                        <label>非空载Top5路线</label>
+                        <label>非空载路线 Top5</label>
                     </div>
-                    <div class='chart-right chart-border' id='loaded-top5' style='height: 260px;'></div>
+                    <div class='chart-border'>
+                        <div class='chart-right chart-body' id='loaded-top5'></div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-
-        <!-- another div as a background layer on top of the whole background and under other contents-->        
-        <div class='small-background-layer'>
-        </div>
+        <!-- another div as a background layer on top of the whole background and under other contents-->
+        <!--<div class='small-background-layer'>
+        </div>-->
         <div class='map-container'>
             <div  class='the-map' id="china_map">
             </div>
         </div>
-
         <!-- end of page content -->
         <!-- external javascript files -->
         <script src="javascripts/vendor/modernizr-3.5.0.min.js"></script>

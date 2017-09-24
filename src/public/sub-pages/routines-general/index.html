@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="stylesheets/normalize.css">
         <link rel="stylesheet" href="stylesheets/main.css">
         <link rel="stylesheet" href="stylesheets/style.css">
-        <script src='javascripts/vendor/echarts.js'></script>
+        <script src='javascripts/vendor/echarts.js'></script>        
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -25,7 +25,7 @@
         
         <!-- page content goes here-->
         <div class='title-block'>
-            <div class='grids-1'><label class='title'>﻿云南省货物流量概览</label></div>
+            <div class='grids-1'><label class='title'>﻿云南省货物概览</label></div>
             <div class='grids-1'><img class='underscore' src='images/underscore.png' alt='' /></div>
         </div>
         <!-- column left -->
@@ -51,7 +51,7 @@
                 </div>
                 <div class='col bar-small'>
                     <div class='chart-title'>
-                        <label>云南省内货物流动前5类</label>
+                        <label>云南省内货物流动 Top 5</label>
                     </div>
                     <div id='total-top5' class='chart-body chart-border'></div>
                 </div>
@@ -59,7 +59,7 @@
             <div class='row bottom-row'>
                 <div class='col'>
                     <div class='chart-title'>
-                        <label>云南省货物流入前5类</label>
+                        <label>云南省货物流入 Top 10</label>
                     </div>
                     <div class='chart-border'>
                         <div id='total' class='in-top5-counter'>
@@ -80,7 +80,7 @@
                 </div>
                 <div class='col'>
                     <div class='chart-title'>
-                        <label>云南省货物流出前5类</label>
+                        <label>云南省货物流出前 Top 10</label>
                     </div>
                     <div class='chart-border'>
                         <div id='total' class='out-top5-counter'>
@@ -103,8 +103,8 @@
             
         </div>
         <!-- another div as a background layer on top of the whole background and under other contents-->
-        <div class='small-background-layer'>
-        </div>
+        <!--<div class='small-background-layer'>
+        </div>-->
         <div class='map-container'>
             <div  class='the-map' id="china_map">
             </div>

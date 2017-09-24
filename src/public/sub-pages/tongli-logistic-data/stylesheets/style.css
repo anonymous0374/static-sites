@@ -15,7 +15,7 @@ a {
 }
 
 .title {
-  font-family: 'PingFangSC-Semibold';
+  font-family: PingFangSC-Semibold;
     font-size:45px;
     font-weight: bold;
     color: #ffffff;
@@ -37,9 +37,9 @@ a {
 }
 
 .chart-title {
-  font-family: 'PingFangSC-Semibold';
+  font-family: PingFangSC-Semibold;
   font-size:21px;
-  color: #00abf3;
+  color: #00e8f3;
 }
 
 .grids1 {
@@ -53,9 +53,9 @@ a {
 }
 
 .column-right {
-  width:  630px;
+  width:  550px;
   height:  990px;
-  float:  left;
+  float:  right;
 }
 
 .bar-row {  
@@ -77,7 +77,8 @@ a {
 
 .chart-border {
   border:  2px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
 }
 
 .chart-wide {
@@ -95,20 +96,26 @@ a {
   height:  410px;
 }
 
+.chart-wider {  
+  height:  430px;
+  width:  150px;
+  float:  left;
+}
+
 .chart-narrow {  
   height:  430px;
-  width:  100%;
+  width:  300px;
   float:  left;
 }
 
 .bar-left {
-  width:  430px;
-  height:  300px;
+  width:  230px;
+  height:  330px;
 }
 
 .bar-right {
-  width:  430px;
-  height:  337px;
+  width:  130px;
+  height:  330px;
 }
 
 .map-container {  
@@ -121,6 +128,6 @@ a {
   height:  1000px;
   position: absolute;
   top:  -200px;
-  left:  350px;
+  left:  450px;
   z-index: -1;
 }

@@ -4,9 +4,34 @@
         return;
     }
 
-    var config = getConfigTemplate(); // get basic configs of all charts on this page
-    var charts = []; // eChart instances
+    var env = {
+        dev: {
+            enabled: false,
+            urlPrefix: 'http://localhost:3010'
+        },
+        test: {
+            enabled: true,
+            urlPrefix: 'http://statictest.tf56.com'
+                // urlPrefix: ''
+        },
+        prod: {
+            enabled: false,
+            urlPrefix: 'http://data.tf56.com'
+                // urlPrefix: ''
+        },
+        getUrlPrefix: function() {
+            if (this.dev.enabled) {
+                return this.dev.urlPrefix;
+            } else if (this.test.enabled) {
+                return this.test.urlPrefix;
+            } else if (this.prod.enabled) {
+                return this.prod.urlPrefix;
+            }
+        }
+    };
 
+    var config = getConfigTemplate(); // get basic configs of all charts on this page
+    var charts = []; // eChart instances 
 
     $(function() { // refresh the charts
         // generate map separately, and generate only once
@@ -29,180 +54,32 @@
                     normal: {
                         areaColor: 'rgba(1, 101, 204, 0.7)',
                         borderColor: '#404a59',
-                        borderWidth: 1
+                        borderWidth: 1,
+                        color: 'rgba(51, 69, 89, .5)',
+                        borderColor: 'rgba(100,149,237,1)'
                     }
                 },
                 layoutCenter: ['50%', '60%'],
                 layoutSize: 1000,
                 selectedMode: true,
-                regions: [{
-                    name: '四川',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff;',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '广东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
+                regions: [{ // an example region item
                     name: '云南',
                     itemStyle: {
                         normal: {
-                            areaColor: 'rgb(0, 127, 213)'
+                            // areaColor: 'rgb(0, 215, 226)'
                         }
                     },
                     label: {
                         normal: {
-                            show: true,
+                            show: false,
                             color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '广西',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '河南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '湖南',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 212, 170)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '贵州',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(125, 205, 189)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '浙江',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 168, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '江苏',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 127, 213)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '重庆',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
-                            fontWeight: 'bold'
-                        }
-                    }
-                }, {
-                    name: '山东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
-                    label: {
-                        normal: {
-                            show: true,
-                            color: '#ffffff',
-                            fontSize: 24,
+                            fontSize: 30,
                             fontWeight: 'bold'
                         }
                     }
                 }]
             },
-            series: [{
+            series: [{ // an example of a point item(will be overwrite by actual data)
                 name: '地点',
                 type: 'effectScatter',
                 effectType: 'ripple',
@@ -214,15 +91,8 @@
                     scale: 4,
                     brushType: 'stroke'
                 },
-                label: {
-                    emphasis: {
-                        show: true,
-                        position: 'right',
-                        formatter: '{b}'
-                    }
-                },
-                symbol: 'circle',
-                symbolSize: 20,
+                symbol: 'pin',
+                symbolSize: 10,
                 itemStyle: {
                     normal: {
                         color: '#46bee9'
@@ -231,39 +101,44 @@
                 data: data.points.map(function(item) {
                     item.symbol = 'circle';
                     item.symbolSize = 10;
+                    item.label = {
+                        normal: {
+                            show: true,
+                            formatter: '{b}',
+                            fontSize: 13,
+                            color: '#ffffff',
+                            position: 'right'
+                        }
+                    };
                     item.itemStyle = {
                         normal: {
-                            color: '#ff6666'
+                            // color: '#ff6666'
+                            color: 'gold'
                         }
                     };
 
+                    if (item.name === '玉溪') {
+                        item.itemStyle.normal.color = 'red';
+                    }
+
                     return item;
                 })
-            }, {
+            }, { // an example of a line item(will be overwrite by actual data)
                 name: '线路',
                 type: 'lines',
                 coordinateSystem: 'geo',
-                zlevel: 2,
+                zlevel: 1,
                 effect: {
                     show: true,
-                    constantSpeed: 30,
-                    symbol: 'arrow',
-                    symbolSize: 15,
+                    constantSpeed: 60,
+                    symbol: 'pin',
+                    symbolSize: 10,
                     trailLength: 0
                 },
                 lineStyle: {
                     normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: '#ffffff'
-                        }, {
-                            offset: 0.5,
-                            color: '#188df0'
-                        }, {
-                            offset: 1,
-                            color: '#F58158'
-                        }], false),
-                        width: 4,
+                        color: '#05FBC4', // 飞行图标
+                        width: 1,
                         opacity: 0.6,
                         curveness: 0.2
                     }
@@ -278,7 +153,7 @@
     // fetch data and initialize charts after DOM is ready for manipulation
     function generateCharts() {
         $(charts).each(function(index, item) {
-            item.chart.clear();
+            item.clear();
         });
 
         $(Object.keys(config)).each(function(index, key) {
@@ -287,13 +162,22 @@
                 var promise = $.ajax({
                     url: config[key].url
                 });
-                var $chart = $('#' + config[key].elId);
+                var elId = config[key].elId;
+
+                var $chart = $('#' + elId);
                 if ($chart.length > 0) { // check if element exists for safty
-                    chart = echarts.init($chart[0]);
-                    charts.push({ // closure
-                        chartId: config[key].elId,
-                        chart: chart
-                    });
+                    for (var i = 0; i < charts.length; i += 1) {
+                        if (charts[i].elId === elId) { // the chart instance has already been initialized before
+                            chart = charts[i];
+                            break;
+                        }
+                    }
+
+                    if (!chart.elId) { // no such chart in charts yet
+                        chart = echarts.init($chart[0]);
+                        chart.elId = elId;
+                        charts.push(chart);
+                    }
                 } else {
                     console.log('cannot find element for the chart: ' + config[key].elId);
                     return;
@@ -313,17 +197,62 @@
                                     textStyle: {
                                         fontSize: 12,
                                         color: 'white',
-                                        padding: [-45, 0, 0, 10],
+                                        padding: option.elId == 'empty-top5' ? [-45, 0, 0, 10] : [-45, 0, 0, 10],
                                         align: 'left'
                                     }
                                 };
                             });
-                        //// backend returns 10 records where it should return 5 ONLY, thus this special code to pick last 5
-                        data.series.data = data.series.data.length === 10 ? data.series.data.slice(4, 9) : data.series.data;
-                        data.yAxis.data = updatedData.length === 10 ? updatedData.slice(4, 9) : updatedData;
-                        //// 
+                        data.yAxis.data = updatedData;
                     }
 
+                    // special code for option_juanyan_req_trends, because it has only 7 months
+                    if (key === 'option_juanyan_req_trends') {
+                        var actual_data = data.series.slice(0, 7);
+                        var actual_xaxis = data.xAxis.data.slice(0, 7);
+                        data.series.data = actual_data;
+                        data.xAxis.data = actual_xaxis;
+                    }
+
+                    if (key.indexOf('value_top10') !== -1) {
+                        var actual_data = data.series.data.slice(10, 20);
+                        var actual_yaxis = data.yAxis.data.slice(10, 20);
+                        var actual_yaxis_reversed = [];
+
+                        $(actual_yaxis).each(function(index, value) {
+                            actual_yaxis_reversed.splice(0, 0, value);
+                        });
+
+                        data.series.data = actual_data.sort(function(num1, num2) {
+                            return num1 - num2;
+                        });
+                        data.series.label.normal.formatter = "{c}";
+                        data.series.itemStyle = {
+                            normal: {
+                                barBorderRadius: [80, 0, 0, 80],
+                                color: new echarts.graphic.LinearGradient(
+                                    1, 0, 0, 0, [{
+                                        offset: 0,
+                                        color: '#188df0'
+                                    }, {
+                                        offset: 0.5,
+                                        color: '#188df0'
+                                    }, {
+                                        offset: 1,
+                                        color: '#83bef6'
+                                    }]
+                                )
+                            }
+                        };
+                        data.yAxis.data = actual_yaxis_reversed;
+
+                    } else if (key.indexOf('value_bottom10') !== -1) {
+                        var actual_data = data.series.data.slice(0, 10);
+                        var actual_yaxis = data.yAxis.data.slice(0, 10);
+                        data.series.data = actual_data;
+                        data.series.label.normal.formatter = "{c}";
+                        data.yAxis.data = actual_yaxis;
+                    }
+                    // end special code
                     chart.setOption(option, false, true);
                     chart.setOption(data, false, true);
                 });
@@ -399,12 +328,58 @@
                 },
                 data: []
             }],
-            url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=1"
+            url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=1"
         };
 
         // another type of bar-chart
-        var barOptBase2 = $.extend(true, {}, barOptBase, {
+        var barOptBaseFull = $.extend(true, {}, barOptBase, {
             elId: 'full-top5',
+            grid: {
+                left: '-12%',
+                top: '10%',
+                containLabel: true
+            },
+            yAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    color: '#ffffff;'
+                },
+                axisLine: {
+                    show: false
+                },
+                data: []
+            },
+            series: {
+                type: 'bar',
+                barWidth: '40%',
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: [0, 80, 80, 0],
+                        color: new echarts.graphic.LinearGradient(
+                            1, 0, 0, 0, [{
+                                offset: 0,
+                                color: '#83bef6'
+                            }, {
+                                offset: 0.5,
+                                color: '#188df0'
+                            }, {
+                                offset: 1,
+                                color: '#188df0'
+                            }]
+                        )
+                    }
+                },
+                data: []
+            },
+            url: env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=7'
+        });
+
+        // the third bar config base
+        var barOptBaseEmpty = $.extend(true, {}, barOptBase, {
+            elId: 'empty-top5',
             grid: {
                 left: '-8%',
                 top: '10%',
@@ -444,12 +419,13 @@
                     }
                 },
                 data: []
-            }
+            },
+            url: env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=8'
         });
 
         // setting template of line-charts
         var lineOptBase = {
-            color: ['#3398DB'],
+            color: ['#72e5f5', '#fd9929', '#f8e71c', '#29fd70'],
             type: 'line',
             xAxis: {
                 type: 'category',
@@ -461,7 +437,6 @@
                     color: 'white',
                     opacity: 0.7
                 },
-                // name: 'x',
                 splitLine: {
                     show: true,
                     lineStyle: {
@@ -500,27 +475,8 @@
                 top: '30%',
                 containLabel: true
             },
-            series: [{
-                type: 'line',
-                data: []
-            }, {
-                type: 'line',
-                lineStyle: {
-                    normal: {
-                        color: 'pink'
-                    }
-                },
-                data: []
-            }, {
-                type: 'line',
-                lineStyle: {
-                    normal: {
-                        color: 'green'
-                    }
-                },
-                data: []
-            }],
-            url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
+            series: [],
+            url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData?type=4"
         };
 
         // actual configurations of all charts on the page
@@ -528,31 +484,37 @@
             option_lenglian_frequent_bar: $.extend(true, {}, barOptBase),
             option_juanyan_frequent_bar: $.extend(true, {}, barOptBase, {
                 elId: 'juanyan-frequent',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=3"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=3"
             }),
             option_lingdan_frequent_bar: $.extend(true, {}, barOptBase, {
                 elId: 'lingdan-frequent',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=4"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=4"
             }),
             option_shiweice_frequent_bar: $.extend(true, {}, barOptBase, {
                 elId: 'shiweice-frequent',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=2"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=2"
             }),
             option_order_trends_line: $.extend(true, {}, lineOptBase, {
                 elId: 'order-trends',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=5"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=5"
             }),
             option_juanyan_req_trends: $.extend(true, {}, lineOptBase, {
                 elId: 'juanyan-req-trends',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=6"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=6"
             }),
-            option_full_top5: barOptBase2,
-            option_empty_top5: $.extend(true, {}, barOptBase2, {
+            option_full_top5: barOptBaseFull,
+            option_empty_top5: $.extend(true, {}, barOptBaseEmpty, {
                 elId: 'empty-top5',
-                url: "http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=8"
+                url: env.getUrlPrefix() + "/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=8"
             }),
             option_juanyan_routine_value_top10: $.extend(true, {}, barOptBase, {
                 elId: 'juanyan-routine-value-top',
+                grid: {
+                    left: '8%',
+                    top: '6%',
+                    bottom: '0',
+                    containLabel: true
+                },
                 xAxis: [{
                     type: 'value',
                     inverse: true,
@@ -564,12 +526,6 @@
                     },
                     show: false
                 }],
-                grid: {
-                    left: '8%',
-                    top: '6%',
-                    bottom: '0',
-                    containLabel: true
-                },
                 yAxis: {
                     type: 'category',
                     showTitle: false,
@@ -585,28 +541,7 @@
                         show: false
                     }
                 },
-                series: [{
-                    type: 'bar',
-                    barWidth: '70%',
-                    itemStyle: {
-                        normal: {
-                            barBorderRadius: [80, 0, 0, 80],
-                            color: new echarts.graphic.LinearGradient(
-                                1, 0, 0, 0, [{
-                                    offset: 0,
-                                    color: '#83bef6'
-                                }, {
-                                    offset: 0.5,
-                                    color: '#188df0'
-                                }, {
-                                    offset: 1,
-                                    color: '#188df0'
-                                }]
-                            )
-                        }
-                    },
-                    data: []
-                }]
+                url: env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=9'
             }),
             option_juanyan_routine_value_bottom10: $.extend(true, {}, barOptBase, {
                 elId: 'juanyan-routine-value-bottom',
@@ -629,7 +564,8 @@
                     axisLine: {
                         show: false
                     }
-                }
+                },
+                url: env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=9'
             })
         };
 
@@ -639,7 +575,7 @@
     // fetch data for china-map
     function setupMapSeries() {
         var coordsPromise = $.getJSON('javascripts/vendor/indexed-city-coords.json');
-        var valuePromise = $.getJSON('http://statictest.tf56.com/bigDataBigScreenWeb/boarddatayunan/getYunNanGoodGoingSummary?type=7');
+        var valuePromise = $.getJSON(env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYuXiLoadPortLogisticData1?type=10');
 
         return $.when(coordsPromise, valuePromise).then(function(coordsResolved, valuesResolved) {
             return generateMapData(coordsResolved[0], valuesResolved[0].data);
@@ -655,12 +591,14 @@
         }
 
         lines = values.map(function(item) {
-            var fromName = item.valueText.split('-')[0].slice(0, 2);
-            var toName = item.valueText.split('-')[1].slice(0, 2);
+            var fromNameOriginal = item.valueText.split('-')[0];
+            var fromName = fromNameOriginal.slice(0, 2);
+            var toNameOriginal = item.valueText.split('-')[1];
+            var toName = toNameOriginal.slice(0, 2);
 
             return {
-                fromName: fromName,
-                toName: toName,
+                fromName: fromNameOriginal,
+                toName: toNameOriginal,
                 coords: getCoords([fromName, toName], coordsBase)
             }
         });
@@ -734,12 +672,21 @@
 
         try {
             response = JSON.parse(rsp).data;
-            $(response).each(function(index, item) {
-                var actualValue = item.valueLong.endsWith('%') ?
-                    Number(item.valueLong.slice(0, item.valueLong.length - 1)) :
-                    Number(item.valueLong.replace(',', ''));
+            if ($.isArray(response)) {
+                // response = JSON.parse(rsp).data
+            } else {
+                var keys = Object.keys(JSON.parse(rsp).data);
+                var response = [];
+                $(keys).each(function(index, key) {
+                    response = JSON.parse(rsp).data[key].concat(response);
+                });
+            }
 
-                series.splice(0, 0, actualValue);
+            $(response).each(function(index, item) {
+                var valueInNumber = /\%$/.test(item.valueLong) ?
+                    Number(item.valueLong.slice(0, item.valueLong.length - 1)) :
+                    Number(item.valueLong);
+                series.push(valueInNumber);
                 yAxis.push(item.valueText);
             });
 
@@ -752,7 +699,8 @@
                         normal: {
                             show: true,
                             position: 'inside',
-                            color: '#ffffff'
+                            color: '#ffffff',
+                            formatter: "{c}%"
                         }
                     },
                     data: series
@@ -760,11 +708,12 @@
             };
         } catch (e) {
             console.log(e);
-
         }
 
         return option;
     }
+
+    // function barDataResolvedFor
 
     function barDataFailed(e) {
         console.log(e);
@@ -863,7 +812,6 @@
                     color: 'white',
                     opacity: 0.7
                 },
-                // name: 'x',
                 splitLine: {
                     show: true,
                     lineStyle: {

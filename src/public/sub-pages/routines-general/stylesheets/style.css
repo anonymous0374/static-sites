@@ -10,7 +10,7 @@ a {
 }
 
 .title-block {
-
+  /* margin-bottom: 50px;     */
 }
 
 .title {
@@ -19,7 +19,6 @@ a {
     font-weight: bold;
     color: #ffffff;
     letter-spacing: 0;
-
     display: block;
     position: relative;
     transform: translateX(-50%);
@@ -38,7 +37,7 @@ a {
 .chart-title {
   font-family: 'PingFangSC-Semibold';
   font-size:21px;
-  color: #00abf3;
+  color: #00e8f3;
 }
 
 .grids1 {
@@ -70,13 +69,14 @@ a {
 
 .chart-body-taller {
   width:  100%;
-  height:  350px;
+  height:  420px;
   margin-top:  120px;
 }
 
 .chart-border {
   border:  2px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);  
+  border-radius: 5px;
 }
 
 .chart-wide {
@@ -94,7 +94,7 @@ a {
   height:  1000px;
   position: absolute;
   top:  -100px;
-  left:  850px;
+  left:  900px;
   z-index: -1;
 }
 
@@ -132,8 +132,8 @@ a {
 }
 
 .counter-label {
-  font-size: 15px;
-  font-weight: 300;
+  font-size: 14px;
+  font-weight: bold;
   color: #ffffff;
 }
 
@@ -145,9 +145,9 @@ a {
 }
 
 .counter-unit {
-  font-size:  15px;
+  font-size:  14px;
   color: #ffffff;
-  font-weight: 300;
+  font-weight: bold;
   float:  right;
 }
 
