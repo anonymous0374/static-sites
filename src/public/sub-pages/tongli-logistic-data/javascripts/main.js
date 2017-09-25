@@ -838,7 +838,7 @@
                     color: '#ffffff',
                     fontSize: 13
                 },
-                padding: [30, 0, 0, 0],
+                padding: [20, 0, 0, 0],
                 itemGap: 20,
                 itemWidth: 30,
                 icon: 'rect'

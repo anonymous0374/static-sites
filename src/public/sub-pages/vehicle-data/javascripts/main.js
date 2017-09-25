@@ -316,7 +316,8 @@
                 },
                 axisLabel: {
                     color: 'white',
-                    opacity: 0.7
+                    opacity: 0.7,
+                    interval: 0
                 },
                 splitLine: {
                     show: false,
@@ -384,13 +385,13 @@
                 elId: 'vehicle-monthly-flow',
                 url: env.getUrlPrefix() + '/bigDataBigScreenWeb/boarddatayunan/getYunNanTruckData?type=7',
                 xAxis: {
-                    data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] // month
+                    data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] // month
                 }
             }),
         }
 
-        the_config.option_vflow_monthly_line.xAxis.data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] // monthly
-        the_config.option_vflow_weekly_line.xAxis.data = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期七'] // weekday
+        the_config.option_vflow_monthly_line.xAxis.data = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'] // monthly
+        the_config.option_vflow_weekly_line.xAxis.data = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'] // weekday
 
         return the_config;
     }
@@ -458,6 +459,8 @@
                     value: Number(item.valueLong.replace(',', '')),
                 };
             });
+
+            //////////////
             var resultPoints = [],
                 unique = [],
                 uniqueStr = [],
@@ -476,12 +479,14 @@
             })
 
             unique.forEach(function(item, index) {
-                points.forEach(function(ktem, kndex) {
-                    if (item === kndex) {
-                        finalResult.push(ktem);
-                    }
+                    points.forEach(function(ktem, kndex) {
+                        if (item === kndex) {
+                            finalResult.push(ktem);
+                        }
+                    })
                 })
-            })
+                ///////////////////
+
             var valList = convertData(finalResult); // 经纬度 数值集合
             var res = finalResult.map(function(item, index) {
                 item.value = valList[index]
