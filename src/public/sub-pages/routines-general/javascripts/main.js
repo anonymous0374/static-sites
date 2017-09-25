@@ -36,15 +36,15 @@
     var counters = [{
         elId: 'num',
         elClass: 'num',
-        value: 972207
+        value: 972207 // demo data
     }, {
         elId: 'num1',
         elClass: 'num1',
-        value: 65535
+        value: 65535 // demo data
     }, {
         elId: 'num2',
         elClass: 'num2',
-        value: 35535
+        value: 35535 // demo data
     }];
 
     $(function() { // configs for 3 counter modules
@@ -146,7 +146,7 @@
                     }
                 },
                 data: data.points.map(function(item) {
-                    if (item.name === '云南') {
+                    if (item.name === '昆明' || item.name === '云南省') {
                         item.symbol = 'circle'; // 'image://images/logo.png'
                         item.symbolSize = 10;
                         item.itemStyle = {
@@ -280,7 +280,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false

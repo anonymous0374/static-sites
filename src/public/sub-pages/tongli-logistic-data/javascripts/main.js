@@ -64,11 +64,6 @@
                 selectedMode: true,
                 regions: [{ // an example region item
                     name: '云南',
-                    itemStyle: {
-                        normal: {
-                            // areaColor: 'rgb(0, 215, 226)'
-                        }
-                    },
                     label: {
                         normal: {
                             show: false,
@@ -112,14 +107,19 @@
                     };
                     item.itemStyle = {
                         normal: {
-                            // color: '#ff6666'
                             color: 'gold'
                         }
                     };
 
+                    // UGLY SPECIAL CODE
                     if (item.name === '玉溪') {
                         item.itemStyle.normal.color = 'red';
                     }
+
+                    if (item.name === '泸州') {
+                        item.label.normal.position = 'left';
+                    }
+                    // UGLY SPECIAL CODE
 
                     return item;
                 })
@@ -290,7 +290,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false
@@ -345,7 +347,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff;'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false
@@ -391,7 +395,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff;'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false
@@ -834,7 +840,8 @@
                 },
                 padding: [30, 0, 0, 0],
                 itemGap: 20,
-                itemWidth: 30
+                itemWidth: 30,
+                icon: 'rect'
             },
             series: series.map(function(arr) {
                 return {

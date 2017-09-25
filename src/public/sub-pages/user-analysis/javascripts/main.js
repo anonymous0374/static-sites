@@ -230,7 +230,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false

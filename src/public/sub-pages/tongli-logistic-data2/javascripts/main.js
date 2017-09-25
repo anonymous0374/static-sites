@@ -125,9 +125,15 @@
                         }
                     };
 
+                    // UGLY SPECIAL CODE
                     if (item.name === '玉溪') {
                         item.itemStyle.normal.color = 'red';
                     }
+
+                    if (item.name === '泸州') {
+                        item.label.normal.position = 'left';
+                    }
+                    // UGLY SPECIAL CODE
 
                     return item;
                 })
@@ -253,7 +259,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false
@@ -307,7 +315,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff;'
+                    color: '#ffffff',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false
@@ -341,7 +351,7 @@
         var barOptBase3 = $.extend(true, {}, barOptBase, {
             elId: 'full-top5',
             grid: {
-                left: '-15%',
+                left: '-16%',
                 top: '10%',
                 containLabel: true
             },
@@ -351,7 +361,9 @@
                     show: false
                 },
                 axisLabel: {
-                    color: '#ffffff;'
+                    color: '#ffffff;',
+                    fontSize: 13,
+                    fontWeight: 'bold'
                 },
                 axisLine: {
                     show: false
@@ -741,7 +753,8 @@
                 },
                 padding: [30, 0, 0, 0],
                 itemGap: 40,
-                itemWidth: 60
+                itemWidth: 60,
+                icon: 'rect'
             },
             series: series.map(function(arr) {
                 return {

@@ -14,15 +14,15 @@ var proxy = require('http-proxy-middleware');
 var env = {
     dev: {
         enabled: false,
-        urlPrefix: 'http://localhost:3010'
+        urlPrefix: 'http://statictest.tf56.com'
     },
     test: {
-        enabled: false,
+        enabled: true,
         urlPrefix: 'http://statictest.tf56.com'
             // urlPrefix: ''
     },
     prod: {
-        enabled: true,
+        enabled: false,
         urlPrefix: 'http://data.tf56.com'
             // urlPrefix: ''
     },
@@ -51,17 +51,17 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/users', users);
 
-/*
+
 app.use('/*', proxy({
-    target: getUrlPrefix(), //'http://statictest.tf56.com',
+    target: env.getUrlPrefix(), //'http://statictest.tf56.com',
     changeOrigin: true,
     headers: {
-        "Cookie": "ssoToken=e011da89b8ce3b81baeb1cb6efa35268"
+        "Cookie": "ssoToken=a46beb83dd0f3820a735bbd2cacd9315"
     }
-}));*/
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
